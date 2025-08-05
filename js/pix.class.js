@@ -118,6 +118,12 @@ export class Pix{
             '../img/4_enemie_boss_chicken/5_dead/G26.png'
         ]
     }
+
+    static cloud = [
+        '../img/5_background/layers/4_clouds/1.png',
+        '../img/5_background/layers/4_clouds/2.png'
+    ]
+
     static bottle = {
         rotation : [
             '../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',

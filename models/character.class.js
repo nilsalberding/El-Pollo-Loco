@@ -7,10 +7,11 @@ export class Character extends MovableObject{
 
     constructor(){
         super().loadImage(Pix.mainChar.walk[0]);
-        this.x = 120;
+        this.x = 80;
         this.y = 200;
-        this.width = 100;
-        this.height = 150;
+        this.height = 200;
+        this.width = this.height * 0.5083;
+        
         
     }
 
