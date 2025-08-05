@@ -2,16 +2,22 @@
 import { World } from "../models/world.class.js";
 
 let canvas;
-let ctx;
-
-let world = new World();
+let world;
 
 
-export function init() {
+function init() {
     canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
+    world = new World(canvas);
+    
 
     console.log(world.character);    
+    console.log(world.enemies);
 };
 
 init();
+
+console.log(world);
+
+
+window.init = init;
+window.world = world;
