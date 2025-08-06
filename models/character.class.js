@@ -1,9 +1,10 @@
 import { Pix } from "../js/pix.class.js";
 import { MovableObject } from "./movable_object.class.js";
 
+
 export class Character extends MovableObject{
 
-    
+    world;
 
     constructor(){
         super().loadImage(Pix.mainChar.walk[0]);
@@ -17,7 +18,11 @@ export class Character extends MovableObject{
     }
 
     // #region methods
-
+    animate(pixArray, timer){
+        if(this.world.keyboard.RIGHT){
+            super.animate(pixArray, timer);
+        }
+    }
 
 
     jump(){
