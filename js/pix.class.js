@@ -119,10 +119,13 @@ export class Pix{
         ]
     }
 
-    static cloud = [
-        '../img/5_background/layers/4_clouds/1.png',
-        '../img/5_background/layers/4_clouds/2.png'
-    ]
+    static backgrounds = {
+        air : '../img/5_background/layers/air.png',
+        firstLayer : '../img/5_background/layers/1_first_layer/full.png',
+        secondLayer : '../img/5_background/layers/2_second_layer/full.png',
+        thirdlayer : '../img/5_background/layers/3_third_layer/full.png',
+        cloud : '../img/5_background/layers/4_clouds/full.png'
+    }
 
     static bottle = {
         rotation : [

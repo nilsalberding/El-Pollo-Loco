@@ -1,13 +1,16 @@
-import { Pix } from "../js/pix.class";
-import { MovableObject } from "./movable_object.class";
+import { Pix } from "../js/pix.class.js";
+import { MovableObject } from "./movable_object.class.js";
 
 export class Cloud extends MovableObject{
 
 
     constructor(){
-        super().loadImage(Pix.cloud[0])
+        super().loadImage(Pix.backgrounds.cloud);
 
-        this.x = 500;
-        this.y = 20;
+        this.x = 0;
+        this.y = 0;
+        this.width = 1440;
+        this.height = 480;
     }
 }
+
