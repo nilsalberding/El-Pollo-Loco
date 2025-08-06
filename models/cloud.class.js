@@ -11,16 +11,13 @@ export class Cloud extends MovableObject{
         this.y = 0;
         this.width = 1440;
         this.height = 480;
+        this.speedX = 0.15;
         this.moveLeft();
     }
 
 
 // #region methods
 
-moveLeft() {
-    setInterval(() => {
-        this.x -= 0.15;
-    }, 1000 / 60)
-}
+
 
 }

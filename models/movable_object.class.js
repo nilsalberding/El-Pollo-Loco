@@ -1,6 +1,7 @@
 export class MovableObject {
     x;
     y;
+    speedX;
     img;
     height;
     width;
@@ -22,6 +23,7 @@ export class MovableObject {
         });
     }
 
+    // InterHub
     animate(pixArray, timer) {
         setInterval(() => {
             let i = this.currentImage % pixArray.length;
@@ -29,6 +31,12 @@ export class MovableObject {
             this.img = this.imageCache[path];
             this.currentImage++;
         }, timer)
+    }
+
+    moveLeft() {
+        setInterval(() => {
+            this.x -= this.speedX;
+        }, 1000 / 60)
     }
 
     moveRight() {
