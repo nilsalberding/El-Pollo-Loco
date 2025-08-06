@@ -120,7 +120,7 @@ export class Pix{
     }
 
     static backgrounds = {
-        air : '../img/5_background/layers/air.png',
+        air : '../img/5_background/layers/airfull.png',
         firstLayer : '../img/5_background/layers/1_first_layer/full.png',
         secondLayer : '../img/5_background/layers/2_second_layer/full.png',
         thirdlayer : '../img/5_background/layers/3_third_layer/full.png',

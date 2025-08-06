@@ -12,9 +12,17 @@ export class World {
         new Chicken(),
         new Chicken()
     ];
-    clouds = new Cloud();
+
+    clouds = [
+        new Cloud()
+    ]
+
     backgroundObjects = [
-        new BackgroundObject(Pix.backgrounds.air)
+        new BackgroundObject(Pix.backgrounds.air),
+        new BackgroundObject(Pix.backgrounds.thirdlayer),
+        new BackgroundObject(Pix.backgrounds.secondLayer),
+        new BackgroundObject(Pix.backgrounds.firstLayer)
+
     ]
 
     canvas;
@@ -28,11 +36,13 @@ export class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+        
+        
+        this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.backgroundObjects);
+        
 
         // draw()wird immer wieder aufgerufen
         const self = this;
@@ -43,12 +53,11 @@ export class World {
 
     addToMap(mO) {
         this.ctx.drawImage(mO.img, mO.x, mO.y, mO.width, mO.height)
-    }
+    };
 
     addObjectsToMap(object) {
         object.forEach(o => {
             this.addToMap(o);
-        })
-    }
+        })};
 }
 
