@@ -1,3 +1,4 @@
+import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { MovableObject } from "./movable_object.class.js";
 
@@ -6,7 +7,7 @@ export class Chicken extends MovableObject {
     static spawnX = 400;
 
 
-    constructor(){
+    constructor() {
         super().loadImage(Pix.chickenNormal.walk[0]);
         this.loadImages(Pix.chickenNormal.walk)
         this.changeSpawnX();
@@ -15,8 +16,16 @@ export class Chicken extends MovableObject {
         this.width = this.height * 0.98;
         this.speedX = 0.15 + Math.random() * 0.25;
         this.moveLeft()
-        this.animate(Pix.chickenNormal.walk, 1000/10)
+        IntervalHub.startInterval(this.animate, 1000 / 10);
+        IntervalHub.startInterval(this.moveLeft, 1000 / 60);
     }
+
+    animate = () => {        
+            let i = this.currentImage % Pix.chickenNormal.walk.length;
+            let path = Pix.chickenNormal.walk[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        }
 
     changeSpawnX() {
         this.x = Chicken.spawnX;

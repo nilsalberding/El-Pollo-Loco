@@ -25,13 +25,12 @@ export class World {
     ]
 
     canvas;
-    keyboard;
+    
     ctx;
 
-    constructor(canvas, keyboard) {
+    constructor(canvas) {
         this.ctx = canvas.getContext('2d');
-        this.canvas = canvas;
-        this.keyboard = keyboard;
+        this.canvas = canvas;        
         this.draw();
         this.setWorld();
     }

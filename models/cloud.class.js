@@ -1,3 +1,4 @@
+import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { MovableObject } from "./movable_object.class.js";
 
@@ -12,7 +13,7 @@ export class Cloud extends MovableObject{
         this.width = 1440;
         this.height = 480;
         this.speedX = 0.15;
-        this.moveLeft();
+        IntervalHub.startInterval(this.moveLeft, 1000 / 60);
     }
 
 
