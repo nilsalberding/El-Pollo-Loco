@@ -9,6 +9,7 @@ export class MovableObject {
     width;
     currentImage = 0;
     imageCache = [];
+    otherDirection = false
 
 
 
