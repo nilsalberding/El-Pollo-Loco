@@ -17,12 +17,7 @@ export class World {
         new Cloud()
     ]
 
-    backgroundObjects = [
-        new BackgroundObject(Pix.backgrounds.air),
-        new BackgroundObject(Pix.backgrounds.thirdlayer),
-        new BackgroundObject(Pix.backgrounds.secondLayer),
-        new BackgroundObject(Pix.backgrounds.firstLayer)
-    ]
+    backgroundObjects = [];
 
     canvas;    
     ctx;
@@ -33,10 +28,20 @@ export class World {
         this.canvas = canvas;        
         this.draw();
         this.setWorld();
+        this.setBackgrounds();
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+    setBackgrounds() {
+        for(let i = -1; i <= 4; i++){
+            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.air, i * 1440));
+            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.thirdlayer, i * 1440));
+            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.secondLayer, i * 1440));
+            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.firstLayer, i * 1440))
+        }
     }
 
     draw() {
