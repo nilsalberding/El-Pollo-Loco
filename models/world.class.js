@@ -24,9 +24,9 @@ export class World {
         new BackgroundObject(Pix.backgrounds.firstLayer)
     ]
 
-    canvas;
-    
+    canvas;    
     ctx;
+    camera_x = 0;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -42,12 +42,14 @@ export class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
+        this.ctx.translate(this.camera_x, 0);
         
         this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
         
+        this.ctx.translate(-this.camera_x, 0);
 
         // draw()wird immer wieder aufgerufen
         const self = this;
@@ -57,7 +59,17 @@ export class World {
     }
 
     addToMap(mO) {
+        if(mO.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(mO.width, 0);
+            this.ctx.scale(-1, 1);
+            mO.x = mO.x * -1;
+        }
         this.ctx.drawImage(mO.img, mO.x, mO.y, mO.width, mO.height)
+        if(mO.otherDirection) {
+            this.ctx.restore();
+            mO.x = mO.x * -1;
+        }
     };
 
     addObjectsToMap(object) {

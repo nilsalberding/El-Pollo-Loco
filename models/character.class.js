@@ -38,14 +38,18 @@ export class Character extends MovableObject {
         if(Keyboard.RIGHT){
             this.x += this.speedX;
             this.otherDirection = false;
-        }        
+            
+        }  
+        this.world.camera_x = -this.x;      
     }
 
     moveLeft = () => {
         if(Keyboard.LEFT){
             this.x -= this.speedX;
             this.otherDirection = true;
+            
         }
+        this.world.camera_x = -this.x;
     }
 
 
