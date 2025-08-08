@@ -2,6 +2,7 @@ import { Pix } from "../js/pix.class.js";
 import { BackgroundObject } from "../models/background_objects.class.js";
 import { Chicken } from "../models/chicken.class.js";
 import { Cloud } from "../models/cloud.class.js";
+import { Endboss } from "../models/endboss.class.js";
 import { Level } from "../models/level.class.js";
 
 
@@ -9,7 +10,8 @@ export const level1 = new Level(
     [
         new Chicken(),
         new Chicken(),
-        new Chicken()
+        new Chicken(),
+        new Endboss()
     ],
     [
         new Cloud()
