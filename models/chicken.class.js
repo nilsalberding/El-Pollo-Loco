@@ -21,10 +21,7 @@ export class Chicken extends MovableObject {
     }
 
     animate = () => {        
-            let i = this.currentImage % Pix.chickenNormal.walk.length;
-            let path = Pix.chickenNormal.walk[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+        this.playAnimation(Pix.chickenNormal.walk);
         }
 
     changeSpawnX() {
