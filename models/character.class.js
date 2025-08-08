@@ -16,10 +16,10 @@ export class Character extends MovableObject {
         this.y = 220;
         this.height = 200;
         this.width = this.height * 0.5083;
-        this.speedX = 5;
+        this.speedX = 7;
         IntervalHub.startInterval(this.moveRight, 1000 / 60);
         IntervalHub.startInterval(this.moveLeft, 1000 / 60);
-        IntervalHub.startInterval(this.animate, 1000 / 12);
+        IntervalHub.startInterval(this.animate, 1000 / 15);
 
     }
 
@@ -35,21 +35,21 @@ export class Character extends MovableObject {
     }
 
     moveRight = () => {
-        if(Keyboard.RIGHT){
+        if(Keyboard.RIGHT && this.x <  this.world.level.level_end_x){
             this.x += this.speedX;
             this.otherDirection = false;
             
         }  
-        this.world.camera_x = -this.x;      
+        this.world.camera_x = -this.x +100;      
     }
 
     moveLeft = () => {
-        if(Keyboard.LEFT){
+        if(Keyboard.LEFT && this.x > 0){
             this.x -= this.speedX;
             this.otherDirection = true;
             
         }
-        this.world.camera_x = -this.x;
+        this.world.camera_x = -this.x +100;
     }
 
 

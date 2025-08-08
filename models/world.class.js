@@ -1,23 +1,18 @@
 import { Pix } from "../js/pix.class.js";
+import { level1 } from "../level/level1.js";
 import { Character } from "../models/character.class.js";
 import { Chicken } from "../models/chicken.class.js";
 import { BackgroundObject } from "./background_objects.class.js";
 import { Cloud } from "./cloud.class.js";
+import { Level } from "./level.class.js";
 
 export class World {
 
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
-    ];
-
-    clouds = [
-        new Cloud()
-    ]
-
-    backgroundObjects = [];
+    level = level1;
+    // enemies = level1.enemies;
+    // clouds = level1.clouds;
+    // backgroundObjects = level1.backgroundObjects;
 
     canvas;    
     ctx;
@@ -28,39 +23,32 @@ export class World {
         this.canvas = canvas;        
         this.draw();
         this.setWorld();
-        this.setBackgrounds();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    setBackgrounds() {
-        for(let i = -1; i <= 4; i++){
-            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.air, i * 1440));
-            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.thirdlayer, i * 1440));
-            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.secondLayer, i * 1440));
-            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.firstLayer, i * 1440))
-        }
-    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         this.ctx.translate(this.camera_x, 0);
         
-        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.enemies);
-        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.clouds);
         
         this.ctx.translate(-this.camera_x, 0);
 
         // draw()wird immer wieder aufgerufen
-        const self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        })
+        // const self = this;
+        // requestAnimationFrame(function () {
+        //     self.draw();
+        // })
+
+        requestAnimationFrame(() => this.draw());
     }
 
     addToMap(mO) {
