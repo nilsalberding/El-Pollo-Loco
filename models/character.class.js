@@ -7,13 +7,13 @@ import { MovableObject } from "./movable_object.class.js";
 export class Character extends MovableObject {
 
     world;
+    isJumping = false;
 
 
     constructor() {
         super().loadImage(Pix.mainChar.walk[0]);
-        this.loadImages(Pix.mainChar.walk);
-        this.loadImages(Pix.mainChar.jump);
-        this.loadImages(Pix.mainChar.dead)
+        this.loadCharImages();
+
         this.x = 80;
         this.y = 220;
         this.height = 200;
@@ -57,16 +57,27 @@ export class Character extends MovableObject {
     }
 
     animations = () => {
-        if (Keyboard.RIGHT || Keyboard.LEFT) {
-            this.playAnimation(Pix.mainChar.walk);
-        }else if (this.isAboveGround()) {
+
+        if (this.isAboveGround()) {
             this.playAnimation(Pix.mainChar.jump);
-        }else if(this.isDead()) {
+        } else if (this.isDead()) {
             this.playAnimation(Pix.mainChar.dead);
+        } else if (this.isHurt()) {
+            this.playAnimation(Pix.mainChar.hurt);
+        } else if (Keyboard.RIGHT || Keyboard.LEFT) {
+            this.playAnimation(Pix.mainChar.walk);
+        } else {
+            this.playAnimation(Pix.mainChar.idle);
         }
     }
 
 
-
+    loadCharImages() {
+        this.loadImages(Pix.mainChar.walk);
+        this.loadImages(Pix.mainChar.jump);
+        this.loadImages(Pix.mainChar.dead);
+        this.loadImages(Pix.mainChar.hurt);
+        this.loadImages(Pix.mainChar.idle);
+    }
 
 }
