@@ -6,12 +6,17 @@ import { Chicken } from "../models/chicken.class.js";
 import { BackgroundObject } from "./background_objects.class.js";
 import { Cloud } from "./cloud.class.js";
 import { Level } from "./level.class.js";
+import { Statusbar } from "./statusbar.class.js";
 
 
 
 export class World {
 
     character = new Character();
+    healthbar = new Statusbar(Pix.status.health, 0);
+    bottlebar = new Statusbar(Pix.status.bottle, 40);
+    coinbar = new Statusbar(Pix.status.coin, 80);
+
     level = level1;
 
     canvas;
@@ -23,7 +28,7 @@ export class World {
         this.canvas = canvas;
         this.draw();
         this.setWorld();
-        IntervalHub.startInterval(this.checkCollisions, 1000/5);
+        IntervalHub.startInterval(this.checkCollisions, 1000 / 5);
     }
 
     setWorld() {
@@ -32,10 +37,10 @@ export class World {
 
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
-            if(this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                console.log(this.character.health);
-                
+                this.healthbar.setPercentage(this.character.health, Pix.status.health);
+
             }
         })
     }
@@ -48,6 +53,15 @@ export class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0);
+        // #region for fixed Objects
+        this.addToMap(this.healthbar);
+        this.addToMap(this.bottlebar);
+        this.addToMap(this.coinbar);
+        // #endregion
+        this.ctx.translate(this.camera_x, 0);
+
+
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
 
