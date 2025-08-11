@@ -1,6 +1,6 @@
-export class Pix{
+export class Pix {
     static mainChar = {
-        idle : [
+        idle: [
             './img/2_character_pepe/1_idle/idle/I-1.png',
             './img/2_character_pepe/1_idle/idle/I-2.png',
             './img/2_character_pepe/1_idle/idle/I-3.png',
@@ -12,7 +12,7 @@ export class Pix{
             './img/2_character_pepe/1_idle/idle/I-9.png',
             './img/2_character_pepe/1_idle/idle/I-10.png'
         ],
-        longIdle : [
+        longIdle: [
             './img/2_character_pepe/1_idle/long_idle/I-11.png',
             './img/2_character_pepe/1_idle/long_idle/I-12.png',
             './img/2_character_pepe/1_idle/long_idle/I-13.png',
@@ -24,7 +24,7 @@ export class Pix{
             './img/2_character_pepe/1_idle/long_idle/I-19.png',
             './img/2_character_pepe/1_idle/long_idle/I-20.png'
         ],
-        walk : [
+        walk: [
             './img/2_character_pepe/2_walk/W-21.png',
             './img/2_character_pepe/2_walk/W-22.png',
             './img/2_character_pepe/2_walk/W-23.png',
@@ -32,7 +32,7 @@ export class Pix{
             './img/2_character_pepe/2_walk/W-25.png',
             './img/2_character_pepe/2_walk/W-26.png'
         ],
-        jump : [
+        jump: [
             './img/2_character_pepe/3_jump/J-31.png',
             './img/2_character_pepe/3_jump/J-32.png',
             './img/2_character_pepe/3_jump/J-33.png',
@@ -43,12 +43,12 @@ export class Pix{
             './img/2_character_pepe/3_jump/J-38.png',
             './img/2_character_pepe/3_jump/J-39.png'
         ],
-        hurt : [
+        hurt: [
             './img/2_character_pepe/4_hurt/H-41.png',
             './img/2_character_pepe/4_hurt/H-42.png',
             './img/2_character_pepe/4_hurt/H-43.png'
         ],
-        dead : [
+        dead: [
             './img/2_character_pepe/5_dead/D-51.png',
             './img/2_character_pepe/5_dead/D-52.png',
             './img/2_character_pepe/5_dead/D-53.png',
@@ -60,34 +60,34 @@ export class Pix{
     }
 
     static chickenNormal = {
-        walk : [
+        walk: [
             './img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
             './img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
             './img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
         ],
-        dead : [
+        dead: [
             './img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
         ]
     }
 
     static chickenSmall = {
-        walk : [
+        walk: [
             './img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
             './img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
             './img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
         ],
-        dead : [
+        dead: [
             './img/3_enemies_chicken/chicken_small/2_dead/dead.png'
         ]
     }
     static boss = {
-        walk : [
+        walk: [
             './img/4_enemie_boss_chicken/1_walk/G1.png',
             './img/4_enemie_boss_chicken/1_walk/G2.png',
             './img/4_enemie_boss_chicken/1_walk/G3.png',
             './img/4_enemie_boss_chicken/1_walk/G4.png',
         ],
-        alert : [
+        alert: [
             './img/4_enemie_boss_chicken/2_alert/G5.png',
             './img/4_enemie_boss_chicken/2_alert/G6.png',
             './img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -97,7 +97,7 @@ export class Pix{
             './img/4_enemie_boss_chicken/2_alert/G11.png',
             './img/4_enemie_boss_chicken/2_alert/G12.png',
         ],
-        attack : [
+        attack: [
             './img/4_enemie_boss_chicken/3_attack/G13.png',
             './img/4_enemie_boss_chicken/3_attack/G14.png',
             './img/4_enemie_boss_chicken/3_attack/G15.png',
@@ -107,12 +107,12 @@ export class Pix{
             './img/4_enemie_boss_chicken/3_attack/G19.png',
             './img/4_enemie_boss_chicken/3_attack/G20.png',
         ],
-        hurt : [
+        hurt: [
             './img/4_enemie_boss_chicken/4_hurt/G21.png',
             './img/4_enemie_boss_chicken/4_hurt/G22.png',
             './img/4_enemie_boss_chicken/4_hurt/G23.png',
         ],
-        dead : [
+        dead: [
             './img/4_enemie_boss_chicken/5_dead/G24.png',
             './img/4_enemie_boss_chicken/5_dead/G25.png',
             './img/4_enemie_boss_chicken/5_dead/G26.png'
@@ -120,21 +120,21 @@ export class Pix{
     }
 
     static backgrounds = {
-        air : './img/5_background/layers/airfull.png',
-        firstLayer : './img/5_background/layers/1_first_layer/full.png',
-        secondLayer : './img/5_background/layers/2_second_layer/full.png',
-        thirdlayer : './img/5_background/layers/3_third_layer/full.png',
-        cloud : './img/5_background/layers/4_clouds/full.png'
+        air: './img/5_background/layers/airfull.png',
+        firstLayer: './img/5_background/layers/1_first_layer/full.png',
+        secondLayer: './img/5_background/layers/2_second_layer/full.png',
+        thirdlayer: './img/5_background/layers/3_third_layer/full.png',
+        cloud: './img/5_background/layers/4_clouds/full.png'
     }
 
     static bottle = {
-        rotation : [
+        rotation: [
             './img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
             './img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
             './img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
             './img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
         ],
-        splash : [
+        splash: [
             './img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
             './img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
             './img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
@@ -142,13 +142,42 @@ export class Pix{
             './img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
             './img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
         ],
-        ground : [
+        ground: [
             './img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
             './img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
         ]
+    }
+
+    static status = {
+        health: [
+            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
+            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
+            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
+            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
+            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
+            'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
+        ],
+        bottle: [
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/60.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
+            'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png',
+        ],
+        coin: [
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
+            'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
+        ]
+
+
 
     }
 }
 
-// pictures missing: 
+// pictures missing:
 // background, statusbars, coin, intro/outro scenes, you won/ you lost
