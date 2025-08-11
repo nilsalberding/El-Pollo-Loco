@@ -14,58 +14,58 @@ export class Character extends MovableObject {
         this.loadImages(Pix.mainChar.walk);
         this.loadImages(Pix.mainChar.jump);
         this.x = 80;
-        this.y = 0;
+        this.y = 220;
         this.height = 200;
         this.width = this.height * 0.5083;
         this.speedX = 7;
-        IntervalHub.startInterval(this.moveRight, 1000 / 60);
-        IntervalHub.startInterval(this.moveLeft, 1000 / 60);
-        IntervalHub.startInterval(this.animate, 1000 / 15);
+        this.health = 100;
+
+        IntervalHub.startInterval(this.moveSet, 1000 / 60);
         IntervalHub.startInterval(this.applyGravity, 1000 / 25);
-        IntervalHub.startInterval(this.jump, 1000 / 25);
+        IntervalHub.startInterval(this.animations, 1000 / 15)
 
     }
 
     // #region methods
+    moveRightChar() {
+        this.x += this.speedX;
+        this.otherDirection = false;
+    }
 
-    
+    moveLeftChar() {
+        this.x -= this.speedX;
+        this.otherDirection = true;
+    }
 
-    animate = () => {
+    jump() {
+        this.speedY = 20
+    }
+
+
+    moveSet = () => {
+        if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRightChar();
+        }
+        if (Keyboard.LEFT && this.x > 0) {
+            this.moveLeftChar();
+        }
+        if (Keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+        }
+        this.world.camera_x = -this.x + 100;
+    }
+
+    animations = () => {
         if (Keyboard.RIGHT || Keyboard.LEFT) {
             this.playAnimation(Pix.mainChar.walk);
         }
 
-        if(this.isAboveGround()) {
-            this.playAnimation(Pix.mainChar.jump)
+        if (this.isAboveGround()) {
+            this.playAnimation(Pix.mainChar.jump);
         }
     }
-    
-
-    
-    moveRight = () => {
-        if(Keyboard.RIGHT && this.x <  this.world.level.level_end_x){
-            this.x += this.speedX;
-            this.otherDirection = false;
-            
-        }  
-        this.world.camera_x = -this.x +100;      
-    }
-
-    moveLeft = () => {
-        if(Keyboard.LEFT && this.x > 0){
-            this.x -= this.speedX;
-            this.otherDirection = true;
-            
-        }
-        this.world.camera_x = -this.x +100;
-    }
-
-    jump = () => {
-        if(Keyboard.SPACE && !this.isAboveGround()){
-            this.speedY = 20
-
-        }
 
 
-    }
+
+
 }
