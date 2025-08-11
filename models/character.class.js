@@ -13,6 +13,7 @@ export class Character extends MovableObject {
         super().loadImage(Pix.mainChar.walk[0]);
         this.loadImages(Pix.mainChar.walk);
         this.loadImages(Pix.mainChar.jump);
+        this.loadImages(Pix.mainChar.dead)
         this.x = 80;
         this.y = 220;
         this.height = 200;
@@ -58,10 +59,10 @@ export class Character extends MovableObject {
     animations = () => {
         if (Keyboard.RIGHT || Keyboard.LEFT) {
             this.playAnimation(Pix.mainChar.walk);
-        }
-
-        if (this.isAboveGround()) {
+        }else if (this.isAboveGround()) {
             this.playAnimation(Pix.mainChar.jump);
+        }else if(this.isDead()) {
+            this.playAnimation(Pix.mainChar.dead);
         }
     }
 

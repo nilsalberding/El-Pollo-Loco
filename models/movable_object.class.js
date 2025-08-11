@@ -56,6 +56,13 @@ export class MovableObject {
 
     hit() {
         this.health -= 5;
+        if(this.health <= 0) {
+            this.health = 0;
+        }
+    }
+
+    isDead() {
+        return this.health == 0;
     }
 
     // showRectangle(ctx) {
