@@ -2,13 +2,12 @@ import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { MovableObject } from "./movable_object.class.js";
+import { ThrowableObject } from "./throwable_object.class.js";
 
 
 export class Character extends MovableObject {
 
     world;
-    isJumping = false;
-
 
     constructor() {
         super().loadImage(Pix.mainChar.walk[0]);
@@ -42,6 +41,11 @@ export class Character extends MovableObject {
         this.speedY = 20
     }
 
+    throwBottle() {
+        const bottle = new ThrowableObject(this.x, this.y);
+        this.world.throwableObject.push(bottle);d
+    }
+
 
     moveSet = () => {
         if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -52,6 +56,9 @@ export class Character extends MovableObject {
         }
         if (Keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+        }
+        if (Keyboard.D) {
+            this.throwBottle();
         }
         this.world.camera_x = -this.x + 100;
     }

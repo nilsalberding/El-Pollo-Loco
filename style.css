@@ -1,7 +1,15 @@
 body{
+    height: 100dvh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    background-image: url(./img/background_image/chicken_background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: teal;
 }
 
 canvas{

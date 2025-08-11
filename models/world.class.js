@@ -7,6 +7,7 @@ import { BackgroundObject } from "./background_objects.class.js";
 import { Cloud } from "./cloud.class.js";
 import { Level } from "./level.class.js";
 import { Statusbar } from "./statusbar.class.js";
+import { ThrowableObject } from "./throwable_object.class.js";
 
 
 
@@ -16,6 +17,7 @@ export class World {
     healthbar = new Statusbar(Pix.status.health, 0);
     bottlebar = new Statusbar(Pix.status.bottle, 40);
     coinbar = new Statusbar(Pix.status.coin, 80);
+    throwableObject = [];
 
     level = level1;
 
@@ -61,7 +63,7 @@ export class World {
         // #endregion
         this.ctx.translate(this.camera_x, 0);
 
-
+        this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
 
