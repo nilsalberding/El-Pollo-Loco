@@ -1,4 +1,7 @@
 import { IntervalHub } from "../js/intervall_hub.class.js";
+// import { Character } from "./character.class.js";
+// import { Chicken } from "./chicken.class.js";
+
 
 export class MovableObject {
     x;
@@ -12,9 +15,10 @@ export class MovableObject {
     currentImage = 0;
     imageCache = [];
     otherDirection = false
+    health;
 
     applyGravity = () => {
-        if(this.isAboveGround() || this.speedY > 0){
+        if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
             this.speedY -= this.acceleration;
         }
@@ -48,6 +52,27 @@ export class MovableObject {
 
     moveLeft = () => {
         this.x -= this.speedX;
+    }
+
+    hit() {
+        this.health -= 5;
+    }
+
+    // showRectangle(ctx) {
+    //     if (this instanceof Character || this instanceof Chicken) {
+    //         ctx.beginPath();
+    //         ctx.lineWidth = '3';
+    //         ctx.strokeStyle = 'blue';
+    //         ctx.rect(this.x, this.y, this.width, this.height);
+    //         ctx.stroke();
+    //     }
+    // }
+
+    isColliding(mO) {
+        return this.x + this.width > mO.x &&
+        this.y + this.height > mO.y &&
+        this.x < mO.x &&
+        this.y < mO.y + this.height;
     }
 
     moveRight() {
