@@ -18,15 +18,16 @@ export class ThrowableObject extends MovableObject {
 
     }
 
+    // #region methods
 
     throw(x, y) {
         this.x = x;
         this.y = y;
-        // TODO muss besser gelöst werden
+        // TODO setIntervall muss vernünftig verpackt werden. Nur eine Flasche pro sekunde werfen!
         setInterval(() => {
             this.y -= this.speedY;
             this.x += this.speedX;
-            this.speedY -= this.acceleration;            
+            this.speedY -= this.acceleration;
         }, 1000 / 60);
     }
 
@@ -34,5 +35,5 @@ export class ThrowableObject extends MovableObject {
 
         this.playAnimation(Pix.bottle.rotation);
     }
-
+    // #endregion
 }

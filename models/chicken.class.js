@@ -4,9 +4,10 @@ import { MovableObject } from "./movable_object.class.js";
 
 export class Chicken extends MovableObject {
 
+    // #region attributes
     static spawnX = 400;
 
-
+    // #endregion
     constructor() {
         super().loadImage(Pix.chickenNormal.walk[0]);
         this.loadImages(Pix.chickenNormal.walk)
@@ -20,12 +21,15 @@ export class Chicken extends MovableObject {
         IntervalHub.startInterval(this.moveLeft, 1000 / 60);
     }
 
-    animate = () => {        
+    // #region methods
+    animate = () => {
         this.playAnimation(Pix.chickenNormal.walk);
-        }
+    }
 
     changeSpawnX() {
         this.x = Chicken.spawnX;
         Chicken.spawnX += Math.random() * 200 + 60;
     }
+
+    // #endregion
 }

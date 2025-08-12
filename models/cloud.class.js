@@ -20,5 +20,5 @@ export class Cloud extends MovableObject{
 // #region methods
 
 
-
+    // #endregion
 }

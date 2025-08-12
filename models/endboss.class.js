@@ -16,8 +16,11 @@ export class Endboss extends MovableObject {
 
     }
 
+        // #region methods
 
     animate = () => {
         this.playAnimation(Pix.boss.alert);
     }
+
+        // #endregion
 }

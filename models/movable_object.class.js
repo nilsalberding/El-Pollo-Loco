@@ -6,6 +6,7 @@ import { DrawableObject } from "./drawable_object.class.js";
 
 export class MovableObject extends DrawableObject {
 
+    // #region attributes
     speedX;
     speedY = 0;
     acceleration = 1;
@@ -14,6 +15,9 @@ export class MovableObject extends DrawableObject {
     health;
     lastHit;
 
+    // #endregion
+
+    // #region methods
 
     applyGravity = () => {
         if (this.isAboveGround() || this.speedY > 0) {
@@ -68,4 +72,5 @@ export class MovableObject extends DrawableObject {
     moveRight() {
 
     }
+    // #endregion
 } 

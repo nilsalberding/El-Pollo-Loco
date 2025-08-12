@@ -1,5 +1,6 @@
 export class DrawableObject {
 
+    // #region attributes
     x;
     y;
     img;
@@ -7,7 +8,10 @@ export class DrawableObject {
     width;
     currentImage = 0;
     imageCache = [];
-    
+
+    // #endregion
+
+    // #region methods
 
     loadImage(path) {
         this.img = new Image();
@@ -22,5 +26,5 @@ export class DrawableObject {
         });
     }
 
-
+    // #endregion
 }

@@ -13,6 +13,8 @@ import { ThrowableObject } from "./throwable_object.class.js";
 
 export class World {
 
+    // #region attributes
+
     character = new Character();
     healthbar = new Statusbar(Pix.status.health, 0);
     bottlebar = new Statusbar(Pix.status.bottle, 40);
@@ -25,6 +27,8 @@ export class World {
     ctx;
     camera_x = 0;
 
+    // #endregion
+
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -32,6 +36,8 @@ export class World {
         this.setWorld();
         IntervalHub.startInterval(this.checkCollisions, 1000 / 5);
     }
+
+    // #region methods
 
     setWorld() {
         this.character.world = this;
@@ -111,5 +117,7 @@ export class World {
         this.ctx.restore();
         mO.x = mO.x * -1;
     }
+
+        // #endregion
 }
 

@@ -7,7 +7,9 @@ import { ThrowableObject } from "./throwable_object.class.js";
 
 export class Character extends MovableObject {
 
+    // #region attributes
     world;
+    // #endregion
 
     constructor() {
         super().loadImage(Pix.mainChar.walk[0]);
@@ -43,7 +45,7 @@ export class Character extends MovableObject {
 
     throwBottle() {
         const bottle = new ThrowableObject(this.x, this.y);
-        this.world.throwableObject.push(bottle);d
+        this.world.throwableObject.push(bottle);
     }
 
 
@@ -86,5 +88,5 @@ export class Character extends MovableObject {
         this.loadImages(Pix.mainChar.hurt);
         this.loadImages(Pix.mainChar.idle);
     }
-
+    // #endregion
 }
