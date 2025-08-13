@@ -6,6 +6,7 @@ export class Chicken extends MovableObject {
 
     // #region attributes
     static spawnX = 400;
+    health = 20;
 
     // #endregion
     constructor() {

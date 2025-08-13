@@ -13,7 +13,8 @@ export class MovableObject extends DrawableObject {
 
     otherDirection = false;
     health;
-    lastHit;
+    // lastHit;
+    isHurt;
 
     // #endregion
 
@@ -35,11 +36,18 @@ export class MovableObject extends DrawableObject {
     }
 
     hit() {
-        if (this.health <= 0) {
-            this.health = 0;
-        } else {
-            this.health -= 5;
-            this.lastHit = new Date().getTime();
+        if (!this.isHurt) {
+            if (this.health <= 0) {
+                this.health = 0;
+            } else {
+                this.isHurt = true;
+                this.health -= 20;
+                console.log('get Hit');
+                setTimeout(() => {
+                    this.isHurt = false;
+                }, 1000);
+                // this.lastHit = new Date().getTime();
+            }
         }
     }
 
@@ -56,15 +64,22 @@ export class MovableObject extends DrawableObject {
         return this.health == 0;
     }
 
-    isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
-        timepassed = timepassed / 1000; // Difference in s
-        return timepassed < 1;
-    }
+    // isHurt() {
+    //     let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
+    //     timepassed = timepassed / 1000; // Difference in s
+    //     return timepassed < 2;
+    // }
 
     isColliding(mO) {
         return this.x + this.width > mO.x &&
             this.y + this.height > mO.y &&
+            this.x < mO.x + mO.width &&
+            this.y < mO.y + this.height;
+    }
+
+    isCollidingOnTop(mO) {
+        return this.x + this.width > mO.x &&
+            this.y + this.height >= mO.y &&
             this.x < mO.x + mO.width &&
             this.y < mO.y + this.height;
     }

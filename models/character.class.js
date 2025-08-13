@@ -9,6 +9,9 @@ export class Character extends MovableObject {
 
     // #region attributes
     world;
+    bottleReady = true;
+    isFalling = false;
+
     // #endregion
 
     constructor() {
@@ -24,11 +27,14 @@ export class Character extends MovableObject {
 
         IntervalHub.startInterval(this.moveSet, 1000 / 60);
         IntervalHub.startInterval(this.applyGravity, 1000 / 25);
-        IntervalHub.startInterval(this.animations, 1000 / 15)
+        IntervalHub.startInterval(this.animations, 1000 / 15);
+        IntervalHub.startInterval(this.checkFalling, 1000 / 30);
+
 
     }
 
     // #region methods
+
     moveRightChar() {
         this.x += this.speedX;
         this.otherDirection = false;
@@ -40,12 +46,31 @@ export class Character extends MovableObject {
     }
 
     jump() {
-        this.speedY = 20
+        this.speedY = 20;
+    }
+
+    jumpOnEnemy() {
+        this.speedY = 10;
+    }
+
+    checkFalling = () => {
+
+        if (!this.isAboveGround()) {
+            this.isFalling = false;
+        } else if (this.speedY < 0) {
+            this.isFalling = true;
+        }
     }
 
     throwBottle() {
-        const bottle = new ThrowableObject(this.x, this.y);
-        this.world.throwableObject.push(bottle);
+        if (this.bottleReady) {
+            const bottle = new ThrowableObject(this.x, this.y);
+            this.world.throwableObject.push(bottle);
+            this.bottleReady = false;
+            setTimeout(() => {
+                this.bottleReady = true;
+            }, 1000);
+        }
     }
 
 
@@ -71,7 +96,7 @@ export class Character extends MovableObject {
             this.playAnimation(Pix.mainChar.jump);
         } else if (this.isDead()) {
             this.playAnimation(Pix.mainChar.dead);
-        } else if (this.isHurt()) {
+        } else if (this.isHurt) {
             this.playAnimation(Pix.mainChar.hurt);
         } else if (Keyboard.RIGHT || Keyboard.LEFT) {
             this.playAnimation(Pix.mainChar.walk);

@@ -1,10 +1,8 @@
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
-import { level1 } from "../level/level1.js";
 import { Character } from "../models/character.class.js";
 import { Chicken } from "../models/chicken.class.js";
-import { BackgroundObject } from "./background_objects.class.js";
-import { Cloud } from "./cloud.class.js";
+
 import { Level } from "./level.class.js";
 import { Statusbar } from "./statusbar.class.js";
 import { ThrowableObject } from "./throwable_object.class.js";
@@ -20,9 +18,7 @@ export class World {
     bottlebar = new Statusbar(Pix.status.bottle, 40);
     coinbar = new Statusbar(Pix.status.coin, 80);
     throwableObject = [];
-
-    level = level1;
-
+    level = new Level();
     canvas;
     ctx;
     camera_x = 0;
@@ -43,14 +39,36 @@ export class World {
         this.character.world = this;
     }
 
+
+    // TODO : Collisions einstellen, wenn Character auf Chicken springt / check
+    // TODO : Collisions für flaschen gegen Gegner
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            // Collision Character jump on Enemy
+            if (this.character.isColliding(enemy) && this.character.isFalling) {
+                this.character.jumpOnEnemy();
+                enemy.hit();
+                console.log('enemy hit');
+
+            } else if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.healthbar.setPercentage(this.character.health, Pix.status.health);
-
+                
             }
+
+            // Flasche trifft Gegner
+            this.throwableObject.forEach((bottle) => {
+                if (bottle.isColliding(enemy)) {
+                    enemy.hit();
+                    console.log('Hit by bottle');
+                    
+                }
+
+            })
         })
+
+
+
     }
 
 
@@ -61,19 +79,17 @@ export class World {
 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.ctx.translate(-this.camera_x, 0);
-        // #region for fixed Objects
-        this.addToMap(this.healthbar);
-        this.addToMap(this.bottlebar);
-        this.addToMap(this.coinbar);
-        // #endregion
-        this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
+
+        // #region for fixed Objects
+        this.addToMap(this.healthbar);
+        this.addToMap(this.bottlebar);
+        this.addToMap(this.coinbar);
+        // #endregion
         requestAnimationFrame(() => this.draw());
     }
 
@@ -118,6 +134,6 @@ export class World {
         mO.x = mO.x * -1;
     }
 
-        // #endregion
+    // #endregion
 }
 

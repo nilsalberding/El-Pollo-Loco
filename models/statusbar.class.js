@@ -4,7 +4,9 @@ export class Statusbar extends DrawableObject {
 
     // #region attributes
     percentage = 100;
-
+    x = 20;
+    height = 50;
+    width = this.height * 3.766;
     // #endregion
 
     constructor(pixArray, y) {
@@ -12,10 +14,8 @@ export class Statusbar extends DrawableObject {
 
         this.loadImages(pixArray);
         this.setPercentage(100, pixArray);
-        this.x = 20;
         this.y = y;
-        this.height = 50;
-        this.width = this.height * 3.766;
+
     }
 
     // #region methods
