@@ -59,3 +59,12 @@ window.addEventListener("keyup", (e) => {
         Keyboard.D = false;
     }
 }) 
+
+// TODO : Startbildschirm erzeugen
+// TODO : Fullscreen einstellen
+// TODO : Steuerung anzeigen + Mobile-Steuerung einrichten
+// TODO : Spiel responsive machen
+// TODO : Coins erzeugen
+
+// TODO : Game-Over Screen
+// TODO : Endgegner besiegen

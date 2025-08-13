@@ -4,17 +4,18 @@ import { MovableObject } from "./movable_object.class.js";
 
 export class ThrowableObject extends MovableObject {
 
+
+    
+
     constructor(x, y) {
         super().loadImage(Pix.bottle.rotation[0]);
         this.loadImages(Pix.bottle.rotation);
-        this.x = 100;
-        this.y = 100;
         this.height = 100;
         this.width = this.height;
         this.speedX = 10;
         this.speedY = 15;
-        this.throw(x, y)
-        IntervalHub.startInterval(this.animations, 1000 / 30)
+        this.throw(x, y);
+        IntervalHub.startInterval(this.animations, 1000 / 30);
 
     }
 
@@ -23,17 +24,23 @@ export class ThrowableObject extends MovableObject {
     throw(x, y) {
         this.x = x;
         this.y = y;
-        // TODO setIntervall muss vernünftig verpackt werden. Nur eine Flasche pro sekunde werfen!
-        setInterval(() => {
-            this.y -= this.speedY;
-            this.x += this.speedX;
-            this.speedY -= this.acceleration;
-        }, 1000 / 60);
+        IntervalHub.startInterval(this.throwRange, 1000 / 30);
+    }
+
+    throwRange = () => {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        this.speedY -= this.acceleration;
+
     }
 
     animations = () => {
 
         this.playAnimation(Pix.bottle.rotation);
     }
+
+
     // #endregion
 }
+
+// TODO : Flaschen erzeugen zum einsammeln + nur Werfen, wenn sie vorhanden sind
