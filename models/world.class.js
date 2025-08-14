@@ -2,6 +2,9 @@ import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Character } from "../models/character.class.js";
 import { Chicken } from "../models/chicken.class.js";
+import { Coin } from "./coin.class.js";
+import { Collectibles } from "./collectibles.class.js";
+import { Endboss } from "./endboss.class.js";
 
 import { Level } from "./level.class.js";
 import { Statusbar } from "./statusbar.class.js";
@@ -54,7 +57,7 @@ export class World {
                 this.character.hit();
                 this.healthbar.setPercentage(this.character.health, Pix.status.health);
                 console.log('get Hit');
-                
+
             }
 
             // Flasche trifft Gegner
@@ -62,7 +65,7 @@ export class World {
                 if (bottle.isColliding(enemy)) {
                     enemy.hit();
                     console.log('Hit by bottle');
-                    
+
                 }
 
             })
@@ -76,6 +79,8 @@ export class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+
+
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
@@ -83,6 +88,7 @@ export class World {
         this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.collectibles.coins)
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -91,6 +97,10 @@ export class World {
         this.addToMap(this.bottlebar);
         this.addToMap(this.coinbar);
         // #endregion
+
+        // Koordinatensystem
+        this.setCoordinateSystem();
+
         requestAnimationFrame(() => this.draw());
     }
 
@@ -108,7 +118,7 @@ export class World {
     };
 
     showRectangle(mO) {
-        if (mO instanceof Character || mO instanceof Chicken) {
+        if (mO instanceof Character || mO instanceof Chicken || mO instanceof Endboss || mO instanceof Coin) {
             this.ctx.beginPath();
             this.ctx.lineWidth = '3';
             this.ctx.strokeStyle = 'blue';
@@ -129,7 +139,7 @@ export class World {
     //     this.ctx.scale(-1, 1);
     //     mO.rX = mO.rX * -1;
     // }
-    
+
     flipImage(mO) {
         this.ctx.save();
         this.ctx.translate(mO.width, 0);
@@ -145,6 +155,35 @@ export class World {
     flipImageBack(mO) {
         this.ctx.restore();
         mO.x = mO.x * -1;
+    }
+
+    setCoordinateSystem() {
+        const gridColor = '#ffffffff';
+        const gridWidth = 0.5;
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+
+        // Funktion zum Zeichnen des Rasters
+
+        // Setze die Linienstärke und -farbe
+        this.ctx.lineWidth = gridWidth;
+        this.ctx.strokeStyle = gridColor;
+
+        // Zeichne vertikale Linien
+        for (let x = 0; x <= canvasWidth; x += 20) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, 0);
+            this.ctx.lineTo(x, canvasHeight);
+            this.ctx.stroke();
+        }
+
+        // Zeichne horizontale Linien
+        for (let y = 0; y <= canvasHeight; y += 20) {
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, y);
+            this.ctx.lineTo(canvasWidth, y);
+            this.ctx.stroke();
+        }
     }
 
     // #endregion

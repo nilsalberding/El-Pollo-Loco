@@ -1,7 +1,5 @@
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { DrawableObject } from "./drawable_object.class.js";
-// import { Character } from "./character.class.js";
-// import { Chicken } from "./chicken.class.js";
 
 
 export class MovableObject extends DrawableObject {
@@ -39,7 +37,7 @@ export class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 220;
+        return this.y + this.height < 420;
     }
 
     moveLeft = () => {
