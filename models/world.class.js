@@ -88,7 +88,8 @@ export class World {
         this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.collectibles.coins)
+        this.addObjectsToMap(this.level.collectibles.coins);
+        this.addObjectsToMap(this.level.collectibles.bottles);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -118,7 +119,7 @@ export class World {
     };
 
     showRectangle(mO) {
-        if (mO instanceof Character || mO instanceof Chicken || mO instanceof Endboss || mO instanceof Coin) {
+        if (mO instanceof Character || mO instanceof Chicken || mO instanceof Endboss || mO instanceof Collectibles) {
             this.ctx.beginPath();
             this.ctx.lineWidth = '3';
             this.ctx.strokeStyle = 'blue';

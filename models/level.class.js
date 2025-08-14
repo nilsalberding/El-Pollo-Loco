@@ -1,5 +1,6 @@
 import { Pix } from "../js/pix.class.js";
 import { BackgroundObject } from "./background_objects.class.js";
+import { Bottle } from "./bottle.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Cloud } from "./cloud.class.js";
 import { Coin } from "./coin.class.js";
@@ -16,6 +17,10 @@ export class Level {
         coins: [
             new Coin(150, 150),
             new Coin(300, 150)
+        ],
+        bottles: [
+            new Bottle(300), 
+            new Bottle(400)
         ]
 
     }

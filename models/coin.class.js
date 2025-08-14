@@ -12,6 +12,7 @@ export class Coin extends Collectibles {
         right: 45,
         bottom: 45,
     }
+    static coinCounter = 0;
 
     constructor(pX, pY){
         super().loadImage(Pix.coin[0]);
@@ -26,3 +27,5 @@ export class Coin extends Collectibles {
         this.playAnimation(Pix.coin)
     }
 }
+
+// TODO : coins müssen eingesammelt werden können und statusleiste muss sich dementsprechend ändern.
