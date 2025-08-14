@@ -173,11 +173,12 @@ export class Pix {
             'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
             'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
         ]
-
-
-
     }
+    static coin = [
+        'img/8_coin/coin_1.png',
+        'img/8_coin/coin_2.png'
+    ]
 }
 
 // pictures missing:
-// background, statusbars, coin, intro/outro scenes, you won/ you lost
+// intro/outro scenes, you won/ you lost
