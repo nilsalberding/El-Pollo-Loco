@@ -53,6 +53,7 @@ export class World {
             } else if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.healthbar.setPercentage(this.character.health, Pix.status.health);
+                console.log('get Hit');
                 
             }
 
@@ -111,7 +112,7 @@ export class World {
             this.ctx.beginPath();
             this.ctx.lineWidth = '3';
             this.ctx.strokeStyle = 'blue';
-            this.ctx.rect(mO.x, mO.y, mO.width, mO.height);
+            this.ctx.rect(mO.rX, mO.rY, mO.rW, mO.rH);
             this.ctx.stroke();
         }
     }
@@ -122,12 +123,24 @@ export class World {
         })
     };
 
+    // flipImage(mO) {
+    //     this.ctx.save();
+    //     this.ctx.translate(mO.rW, 0);
+    //     this.ctx.scale(-1, 1);
+    //     mO.rX = mO.rX * -1;
+    // }
+    
     flipImage(mO) {
         this.ctx.save();
         this.ctx.translate(mO.width, 0);
         this.ctx.scale(-1, 1);
         mO.x = mO.x * -1;
     }
+
+    // flipImageBack(mO) {
+    //     this.ctx.restore();
+    //     mO.rX = mO.rX * -1;
+    // }
 
     flipImageBack(mO) {
         this.ctx.restore();

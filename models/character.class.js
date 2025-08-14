@@ -11,26 +11,32 @@ export class Character extends MovableObject {
     world;
     bottleReady = true;
     isFalling = false;
-
+    x = 80;
+    y = 220;
+    height = 200;
+    speedX = 7;
+    health = 100;
+    offset = {
+        top: 85,
+        right: 30,
+        left: 20,
+        bottom: 10
+    }
     // #endregion
 
     constructor() {
         super().loadImage(Pix.mainChar.walk[0]);
         this.loadCharImages();
 
-        this.x = 80;
-        this.y = 220;
-        this.height = 200;
         this.width = this.height * 0.5083;
-        this.speedX = 7;
-        this.health = 100;
-
+        IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.moveSet, 1000 / 60);
         IntervalHub.startInterval(this.applyGravity, 1000 / 25);
         IntervalHub.startInterval(this.animations, 1000 / 15);
         IntervalHub.startInterval(this.checkFalling, 1000 / 30);
 
-
+        console.log(this);
+        
     }
 
     // #region methods
@@ -46,7 +52,7 @@ export class Character extends MovableObject {
     }
 
     jump() {
-        this.speedY = 20;
+        this.speedY = 17;
     }
 
     jumpOnEnemy() {
