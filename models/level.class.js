@@ -6,51 +6,37 @@ import { Endboss } from "./endboss.class.js";
 
 export class Level {
 
-        // #region attributes
+    // #region attributes
 
     enemies;
-    clouds; 
+    clouds;
     backgroundObjects;
     level_end_x = 2800;
 
-        // #endregion
+    // #endregion
 
     constructor() {
         this.enemies = [
-                new Chicken(),
-                new Chicken(),
-                new Chicken(),
-                new Endboss()
-            ];
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Endboss()
+        ];
         this.clouds = [
-                new Cloud()
-            ];
-        this.backgroundObjects = [
-                new BackgroundObject(Pix.backgrounds.air, -1440),
-                new BackgroundObject(Pix.backgrounds.thirdlayer, -1440),
-                new BackgroundObject(Pix.backgrounds.secondLayer, -1440),
-                new BackgroundObject(Pix.backgrounds.firstLayer, -1440),
-        
-                new BackgroundObject(Pix.backgrounds.air, 0),
-                new BackgroundObject(Pix.backgrounds.thirdlayer, 0),
-                new BackgroundObject(Pix.backgrounds.secondLayer, 0),
-                new BackgroundObject(Pix.backgrounds.firstLayer, 0),
-        
-                new BackgroundObject(Pix.backgrounds.air, 1440),
-                new BackgroundObject(Pix.backgrounds.thirdlayer,1440),
-                new BackgroundObject(Pix.backgrounds.secondLayer, 1440),
-                new BackgroundObject(Pix.backgrounds.firstLayer, 1440),
-        
-                new BackgroundObject(Pix.backgrounds.air, 1440 * 2),
-                new BackgroundObject(Pix.backgrounds.thirdlayer,1440 * 2),
-                new BackgroundObject(Pix.backgrounds.secondLayer, 1440 * 2),
-                new BackgroundObject(Pix.backgrounds.firstLayer, 1440 * 2),
-        
-                new BackgroundObject(Pix.backgrounds.air, 1440 * 3),
-                new BackgroundObject(Pix.backgrounds.thirdlayer,1440 * 3),
-                new BackgroundObject(Pix.backgrounds.secondLayer, 1440 * 3),
-                new BackgroundObject(Pix.backgrounds.firstLayer, 1440 * 3)
-        
-            ];
+            new Cloud()
+        ];
+        this.backgroundObjects = [];
+        this.setBackgrounds()
+    }
+
+    setBackgrounds() {
+        for (let i = -1; i < 4; i++) {
+            const setX = 1440 * i;
+
+            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.air, setX)),
+            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.thirdlayer, setX)),
+            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.secondLayer, setX)),
+            this.backgroundObjects.push(new BackgroundObject(Pix.backgrounds.firstLayer, setX))
+        }
     }
 }
