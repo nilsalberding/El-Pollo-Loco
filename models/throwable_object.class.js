@@ -14,12 +14,14 @@ export class ThrowableObject extends MovableObject {
         right: 5,
         bottom: 5
     }
+    isBroken = false;
 
     // #endregion
 
     constructor(x, y) {
         super().loadImage(Pix.bottle.rotation[0]);
         this.loadImages(Pix.bottle.rotation);
+        this.loadImages(Pix.bottle.splash);
         this.width = this.height;
         this.throw(x, y);
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
@@ -36,15 +38,19 @@ export class ThrowableObject extends MovableObject {
     }
 
     throwRange = () => {
-        this.y -= this.speedY;
-        this.x += this.speedX;
-        this.speedY -= this.acceleration;
-
+        if (!this.isBroken) {
+            this.y -= this.speedY;
+            this.x += this.speedX;
+            this.speedY -= this.acceleration;
+        }
     }
 
     animations = () => {
-
-        this.playAnimation(Pix.bottle.rotation);
+        if (this.isBroken) {
+            this.playAnimation(Pix.bottle.splash);
+        } else {
+            this.playAnimation(Pix.bottle.rotation);
+        }
     }
 
 

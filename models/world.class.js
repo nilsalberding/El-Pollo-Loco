@@ -2,6 +2,7 @@ import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Character } from "../models/character.class.js";
 import { Chicken } from "../models/chicken.class.js";
+import { Bottle } from "./bottle.class.js";
 import { Coin } from "./coin.class.js";
 import { Collectibles } from "./collectibles.class.js";
 import { Endboss } from "./endboss.class.js";
@@ -33,7 +34,7 @@ export class World {
         this.canvas = canvas;
         this.draw();
         this.setWorld();
-        IntervalHub.startInterval(this.checkCollisions, 1000 / 5);
+        IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
     }
 
     // #region methods
@@ -43,31 +44,46 @@ export class World {
     }
 
 
-    // TODO : Collisions einstellen, wenn Character auf Chicken springt / check
-    // TODO : Collisions für flaschen gegen Gegner
+
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
             // Collision Character jump on Enemy
             if (this.character.isColliding(enemy) && this.character.isFalling) {
                 this.character.jumpOnEnemy();
                 enemy.hit();
-                console.log('enemy hit');
 
             } else if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.healthbar.setPercentage(this.character.health, Pix.status.health);
-                console.log('get Hit');
-
             }
 
             // Flasche trifft Gegner
             this.throwableObject.forEach((bottle) => {
                 if (bottle.isColliding(enemy)) {
                     enemy.hit();
-                    console.log('Hit by bottle');
-
+                    bottle.isBroken = true;
+                    setTimeout(() => {
+                        this.throwableObject.splice(bottle, 1);
+                    },200)
                 }
+            })
 
+            // Coins einsammeln
+            this.level.collectibles.coins.forEach((coin) => {
+                if (this.character.isColliding(coin)) {
+                    Coin.coinCounter++;
+                    const coinIndex = this.level.collectibles.coins.indexOf(coin);
+                    this.level.collectibles.coins.splice(coinIndex, 1);
+                }
+            })
+
+            //  Flaschen einsammeln
+            this.level.collectibles.bottles.forEach((bottle) => {
+                if (this.character.isColliding(bottle)) {
+                    Bottle.bottleCounter++;
+                    const bottleIndex = this.level.collectibles.bottles.indexOf(bottle);
+                    this.level.collectibles.bottles.splice(bottleIndex, 1);
+                }
             })
         })
 
@@ -79,10 +95,23 @@ export class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-
-
         this.ctx.translate(this.camera_x, 0);
 
+        this.addMovableObjects();
+
+        this.ctx.translate(-this.camera_x, 0);
+
+        // #region for fixed Objects
+        this.addFixedObjects();
+        // #endregion
+
+        // Koordinatensystem
+        // this.setCoordinateSystem();
+
+        requestAnimationFrame(() => this.draw());
+    }
+
+    addMovableObjects() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.throwableObject);
@@ -90,19 +119,12 @@ export class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.collectibles.coins);
         this.addObjectsToMap(this.level.collectibles.bottles);
+    }
 
-        this.ctx.translate(-this.camera_x, 0);
-
-        // #region for fixed Objects
+    addFixedObjects() {
         this.addToMap(this.healthbar);
         this.addToMap(this.bottlebar);
         this.addToMap(this.coinbar);
-        // #endregion
-
-        // Koordinatensystem
-        this.setCoordinateSystem();
-
-        requestAnimationFrame(() => this.draw());
     }
 
     addToMap(mO) {
@@ -154,8 +176,9 @@ export class World {
     // }
 
     flipImageBack(mO) {
-        this.ctx.restore();
+
         mO.x = mO.x * -1;
+        this.ctx.restore();
     }
 
     setCoordinateSystem() {

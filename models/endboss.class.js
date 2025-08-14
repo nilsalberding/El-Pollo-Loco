@@ -9,8 +9,8 @@ export class Endboss extends MovableObject {
     height = 250;
 
     offset = {
-        top: 50,
-        left: 30,
+        top: 80,
+        left: 40,
         right: 30,
         bottom: 10
     }
