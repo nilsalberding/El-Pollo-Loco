@@ -2,6 +2,7 @@ import { Pix } from "../js/pix.class.js";
 import { BackgroundObject } from "./background_objects.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Cloud } from "./cloud.class.js";
+import { Coin } from "./coin.class.js";
 import { Endboss } from "./endboss.class.js";
 
 export class Level {
@@ -11,6 +12,13 @@ export class Level {
     enemies;
     clouds;
     backgroundObjects;
+    collectibles = {
+        coins: [
+            new Coin(150, 150),
+            new Coin(300, 150)
+        ]
+
+    }
     level_end_x = 2800;
 
     // #endregion
