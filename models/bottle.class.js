@@ -14,7 +14,7 @@ export class Bottle extends Collectibles {
         right: 25,
         bottom: 10
     }
-    static bottleCounter = 0;
+    static bottlePercentage = 0;
 
     constructor(pX) {
         super().loadImage(Pix.bottle.ground[0]);

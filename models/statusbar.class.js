@@ -7,14 +7,15 @@ export class Statusbar extends DrawableObject {
     x = 20;
     height = 50;
     width = this.height * 3.766;
+    y;
     // #endregion
 
-    constructor(pixArray, y) {
+    constructor() {
         super();
 
-        this.loadImages(pixArray);
-        this.setPercentage(100, pixArray);
-        this.y = y;
+        // this.loadImages(pixArray);
+        // this.setPercentage(100, pixArray);
+        // this.y = y;
 
     }
 

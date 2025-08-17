@@ -3,12 +3,15 @@ import { Pix } from "../js/pix.class.js";
 import { Character } from "../models/character.class.js";
 import { Chicken } from "../models/chicken.class.js";
 import { Bottle } from "./bottle.class.js";
+import { BottleBar } from "./bottlebar.class.js";
 import { Coin } from "./coin.class.js";
+import { Coinbar } from "./coinbar.class.js";
 import { Collectibles } from "./collectibles.class.js";
 import { Endboss } from "./endboss.class.js";
+import { HealthBar } from "./healthbar.class.js";
 
 import { Level } from "./level.class.js";
-import { Statusbar } from "./statusbar.class.js";
+// import { Statusbar } from "./statusbar.class.js";
 import { ThrowableObject } from "./throwable_object.class.js";
 
 
@@ -18,9 +21,9 @@ export class World {
     // #region attributes
 
     character = new Character();
-    healthbar = new Statusbar(Pix.status.health, 0);
-    bottlebar = new Statusbar(Pix.status.bottle, 40);
-    coinbar = new Statusbar(Pix.status.coin, 80);
+    healthbar = new HealthBar();
+    bottlebar = new BottleBar();
+    coinbar = new Coinbar();
     throwableObject = [];
     level = new Level();
     canvas;
@@ -87,9 +90,10 @@ export class World {
             //  Flaschen einsammeln
             this.level.collectibles.bottles.forEach((bottle) => {
                 if (this.character.isColliding(bottle)) {
-                    Bottle.bottleCounter++;
+                    Bottle.bottlePercentage  += 20;
                     const bottleIndex = this.level.collectibles.bottles.indexOf(bottle);
                     this.level.collectibles.bottles.splice(bottleIndex, 1);
+                    this.bottlebar.setPercentage(Bottle.bottlePercentage,Pix.status.bottle);
                 }
             })
         })

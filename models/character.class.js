@@ -1,5 +1,6 @@
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
+import { Bottle } from "./bottle.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { MovableObject } from "./movable_object.class.js";
 import { ThrowableObject } from "./throwable_object.class.js";
@@ -69,9 +70,11 @@ export class Character extends MovableObject {
     }
 
     throwBottle() {
-        if (this.bottleReady) {
+        if (this.bottleReady && Bottle.bottlePercentage > 0) {
             const bottle = new ThrowableObject(this.x, this.y);
             this.world.throwableObject.push(bottle);
+            Bottle.bottlePercentage -= 20;
+            this.world.bottlebar.setPercentage(Bottle.bottlePercentage,Pix.status.bottle);
             this.bottleReady = false;
             setTimeout(() => {
                 this.bottleReady = true;
