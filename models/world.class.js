@@ -77,9 +77,10 @@ export class World {
             // Coins einsammeln
             this.level.collectibles.coins.forEach((coin) => {
                 if (this.character.isColliding(coin)) {
-                    Coin.coinCounter++;
+                    Coin.coinPercentage += 20;
                     const coinIndex = this.level.collectibles.coins.indexOf(coin);
                     this.level.collectibles.coins.splice(coinIndex, 1);
+                    this.coinbar.setPercentage(Coin.coinPercentage, Pix.status.coin);
                 }
             })
 
@@ -162,24 +163,12 @@ export class World {
         })
     };
 
-    // flipImage(mO) {
-    //     this.ctx.save();
-    //     this.ctx.translate(mO.rW, 0);
-    //     this.ctx.scale(-1, 1);
-    //     mO.rX = mO.rX * -1;
-    // }
-
     flipImage(mO) {
         this.ctx.save();
         this.ctx.translate(mO.width, 0);
         this.ctx.scale(-1, 1);
         mO.x = mO.x * -1;
     }
-
-    // flipImageBack(mO) {
-    //     this.ctx.restore();
-    //     mO.rX = mO.rX * -1;
-    // }
 
     flipImageBack(mO) {
 

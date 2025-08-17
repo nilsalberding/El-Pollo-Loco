@@ -12,7 +12,7 @@ export class Coin extends Collectibles {
         right: 45,
         bottom: 45,
     }
-    static coinCounter = 0;
+    static coinPercentage = 0;
 
     constructor(pX, pY){
         super().loadImage(Pix.coin[0]);
