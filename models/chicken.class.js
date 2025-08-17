@@ -20,19 +20,35 @@ export class Chicken extends MovableObject {
     // #endregion
     constructor() {
         super().loadImage(Pix.chickenNormal.walk[0]);
-        this.loadImages(Pix.chickenNormal.walk)
+        this.loadImages(Pix.chickenNormal.walk);
+        this.loadImages(Pix.chickenNormal.dead);
         this.changeSpawnX();
         this.width = this.height * 0.98;
         this.speedX = 0.15 + Math.random() * 0.25;
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60)
-        this.moveLeft()
         IntervalHub.startInterval(this.animate, 1000 / 10);
         IntervalHub.startInterval(this.moveLeft, 1000 / 60);
+
+        console.log(this);
+        
     }
 
     // #region methods
+
+    moveLeft = () => {
+        if (!this.isDead()){
+            this.x -= this.speedX;
+    }}
+
+
     animate = () => {
-        this.playAnimation(Pix.chickenNormal.walk);
+        if (this.isDead()){
+            this.playAnimation(Pix.chickenNormal.dead);
+        } else {
+            this.playAnimation(Pix.chickenNormal.walk);
+        }
+            
+        
     }
 
     changeSpawnX() {

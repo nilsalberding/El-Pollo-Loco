@@ -49,12 +49,18 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             // Collision Character jump on Enemy
             if (this.character.isColliding(enemy) && this.character.isFalling) {
-                this.character.jumpOnEnemy();
-                enemy.hit();
+                if (!enemy.isDead()) {
+                    this.character.jumpOnEnemy();
+                    enemy.hit();
+                }
+
 
             } else if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.healthbar.setPercentage(this.character.health, Pix.status.health);
+                if (!enemy.isDead()) {
+                    this.character.hit();
+                    this.healthbar.setPercentage(this.character.health, Pix.status.health);
+                }
+
             }
 
             // Flasche trifft Gegner
@@ -64,7 +70,7 @@ export class World {
                     bottle.isBroken = true;
                     setTimeout(() => {
                         this.throwableObject.splice(bottle, 1);
-                    },200)
+                    }, 200)
                 }
             })
 
