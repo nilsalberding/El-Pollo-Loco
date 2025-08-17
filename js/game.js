@@ -63,8 +63,9 @@ window.addEventListener("keyup", (e) => {
 // TODO : Startbildschirm erzeugen
 // TODO : Fullscreen einstellen
 // TODO : Steuerung anzeigen + Mobile-Steuerung einrichten
-// TODO : Spiel responsive machen
-// TODO : Coins erzeugen
+// TODO : miniChicken Klasse erstellen und einfügen
 
+// TODO : level strukturieren und Gegner korrekt einfügen
+// TODO : Spiel responsive machen
 // TODO : Game-Over Screen
 // TODO : Endgegner besiegen
