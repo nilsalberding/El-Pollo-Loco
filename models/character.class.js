@@ -23,6 +23,7 @@ export class Character extends MovableObject {
         left: 20,
         bottom: 10
     }
+    isJumping = false;
     static LOOKLEFT = false;
     // #endregion
 
@@ -38,7 +39,7 @@ export class Character extends MovableObject {
         IntervalHub.startInterval(this.checkFalling, 1000 / 30);
 
         console.log(this);
-        
+
     }
 
     // #region methods
@@ -77,7 +78,7 @@ export class Character extends MovableObject {
             const bottle = new ThrowableObject(this.x, this.y);
             this.world.throwableObject.push(bottle);
             Bottle.bottlePercentage -= 20;
-            this.world.bottlebar.setPercentage(Bottle.bottlePercentage,Pix.status.bottle);
+            this.world.bottlebar.setPercentage(Bottle.bottlePercentage, Pix.status.bottle);
             this.bottleReady = false;
             setTimeout(() => {
                 this.bottleReady = true;
@@ -94,6 +95,7 @@ export class Character extends MovableObject {
             this.moveLeftChar();
         }
         if (Keyboard.SPACE && !this.isAboveGround()) {
+            this.isJumping = false;
             this.jump();
         }
         if (Keyboard.D) {
@@ -114,6 +116,19 @@ export class Character extends MovableObject {
             this.playAnimation(Pix.mainChar.walk);
         } else {
             this.playAnimation(Pix.mainChar.idle);
+        }
+    }
+
+
+    playJumpAnimation(pixArray) {
+        if (!this.isJumping) {
+            let i = this.currentImage % pixArray.length;
+            let path = pixArray[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+            if (i == pixArray.length - 1) {
+                this.isJumping = true;
+            }
         }
     }
 
