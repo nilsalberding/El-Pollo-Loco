@@ -11,6 +11,7 @@ import { Endboss } from "./endboss.class.js";
 import { HealthBar } from "./healthbar.class.js";
 
 import { Level } from "./level.class.js";
+import { MovableObject } from "./movable_object.class.js";
 // import { Statusbar } from "./statusbar.class.js";
 import { ThrowableObject } from "./throwable_object.class.js";
 
@@ -152,7 +153,8 @@ export class World {
     };
 
     showRectangle(mO) {
-        if (mO instanceof Character || mO instanceof Chicken || mO instanceof Endboss || mO instanceof Collectibles) {
+        // if (mO instanceof Character || mO instanceof Chicken || mO instanceof Endboss || mO instanceof Collectibles) {
+        if (mO instanceof MovableObject){
             this.ctx.beginPath();
             this.ctx.lineWidth = '3';
             this.ctx.strokeStyle = 'blue';

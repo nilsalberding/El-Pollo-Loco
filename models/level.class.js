@@ -5,6 +5,7 @@ import { Chicken } from "./chicken.class.js";
 import { Cloud } from "./cloud.class.js";
 import { Coin } from "./coin.class.js";
 import { Endboss } from "./endboss.class.js";
+import { MiniChicken } from "./mini_chicken.class.js";
 
 export class Level {
 
@@ -31,6 +32,7 @@ export class Level {
     constructor() {
         this.enemies = [
             new Chicken(),
+            new MiniChicken(),
             new Chicken(),
             new Chicken(),
             new Endboss()
