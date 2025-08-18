@@ -5,13 +5,13 @@ import { Collectibles } from "./collectibles.class.js";
 
 export class Bottle extends Collectibles {
 
-    y = 330;
-    height = 100;
+    y = 350;
+    height = 80;
     width = this.height;
     offset = {
-        top: 25,
-        left: 50,
-        right: 25,
+        top: 15,
+        left: 35,
+        right: 20,
         bottom: 10
     }
     static bottlePercentage = 0;
