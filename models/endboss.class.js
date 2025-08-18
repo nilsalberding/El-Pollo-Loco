@@ -7,6 +7,7 @@ export class Endboss extends MovableObject {
     x = 500;
     y = 180;
     height = 250;
+    health = 100;
 
     offset = {
         top: 80,
@@ -19,7 +20,8 @@ export class Endboss extends MovableObject {
 
     constructor() {
         super().loadImage(Pix.boss.alert[0]);
-        this.loadImages(Pix.boss.alert)
+        this.loadImages(Pix.boss.alert);
+        this.loadImages(Pix.boss.dead);
         this.width = this.height * 0.86;
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
 
@@ -31,7 +33,12 @@ export class Endboss extends MovableObject {
     // #region methods
 
     animate = () => {
-        this.playAnimation(Pix.boss.alert);
+        if (this.isDead()) {
+            this.playAnimation(Pix.boss.dead)
+        } else {
+            this.playAnimation(Pix.boss.alert);
+        }
+
     }
 
     // #endregion

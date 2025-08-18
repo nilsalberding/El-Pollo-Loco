@@ -64,6 +64,7 @@ window.addEventListener("keyup", (e) => {
 // TODO : Fullscreen einstellen
 // TODO : Steuerung anzeigen + Mobile-Steuerung einrichten
 // TODO : miniChicken Klasse erstellen und einfügen
+// TODO : animation nur einmal durchlaufen lassen bei bestimmten funktionen
 
 // TODO : level strukturieren und Gegner korrekt einfügen
 // TODO : Spiel responsive machen
