@@ -23,6 +23,7 @@ export class Character extends MovableObject {
         left: 20,
         bottom: 10
     }
+    static LOOKLEFT = false;
     // #endregion
 
     constructor() {
@@ -45,11 +46,13 @@ export class Character extends MovableObject {
     moveRightChar() {
         this.x += this.speedX;
         this.otherDirection = false;
+        Character.LOOKLEFT = false;
     }
 
     moveLeftChar() {
         this.x -= this.speedX;
         this.otherDirection = true;
+        Character.LOOKLEFT = true;
     }
 
     jump() {

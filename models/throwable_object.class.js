@@ -1,5 +1,6 @@
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
+import { Character } from "./character.class.js";
 import { MovableObject } from "./movable_object.class.js";
 
 export class ThrowableObject extends MovableObject {
@@ -15,6 +16,7 @@ export class ThrowableObject extends MovableObject {
         bottom: 5
     }
     isBroken = false;
+
 
     // #endregion
 
@@ -40,8 +42,12 @@ export class ThrowableObject extends MovableObject {
     throwRange = () => {
         if (!this.isBroken) {
             this.y -= this.speedY;
-            this.x += this.speedX;
             this.speedY -= this.acceleration;
+            if (Character.LOOKLEFT) {
+                this.x -= this.speedX;
+            } else {
+                this.x += this.speedX;
+            }
         }
     }
 
@@ -57,4 +63,3 @@ export class ThrowableObject extends MovableObject {
     // #endregion
 }
 
-// TODO : Flaschen erzeugen zum einsammeln + nur Werfen, wenn sie vorhanden sind
