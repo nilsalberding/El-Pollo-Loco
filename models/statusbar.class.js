@@ -13,10 +13,6 @@ export class Statusbar extends DrawableObject {
     constructor() {
         super();
 
-        // this.loadImages(pixArray);
-        // this.setPercentage(100, pixArray);
-        // this.y = y;
-
     }
 
     // #region methods

@@ -11,7 +11,7 @@ export class MovableObject extends DrawableObject {
 
     otherDirection = false;
     health;
-    isHurt;
+    isHurt = false;
     rX;
     rY;
     rW;

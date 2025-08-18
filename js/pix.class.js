@@ -172,6 +172,14 @@ export class Pix {
             './img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
             './img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
             './img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
+        ],
+        healthBoss: [
+            'img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
+            'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
+            'img/7_statusbars/2_statusbar_endboss/orange/orange40.png',
+            'img/7_statusbars/2_statusbar_endboss/orange/orange60.png',
+            'img/7_statusbars/2_statusbar_endboss/orange/orange80.png',
+            'img/7_statusbars/2_statusbar_endboss/orange/orange100.png',
         ]
     }
     static coin = [

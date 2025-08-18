@@ -9,6 +9,7 @@ import { Coinbar } from "./coinbar.class.js";
 import { Collectibles } from "./collectibles.class.js";
 import { Endboss } from "./endboss.class.js";
 import { HealthBar } from "./healthbar.class.js";
+import { HealthBarBoss } from "./healthbar_boss.class.js";
 
 import { Level } from "./level.class.js";
 import { MovableObject } from "./movable_object.class.js";
@@ -24,6 +25,7 @@ export class World {
     character = new Character();
     healthbar = new HealthBar();
     bottlebar = new BottleBar();
+    healthbarBoss = new HealthBarBoss();
     coinbar = new Coinbar();
     throwableObject = [];
     level = new Level();
@@ -118,7 +120,7 @@ export class World {
         // #endregion
 
         // Koordinatensystem
-        // this.setCoordinateSystem();
+        this.setCoordinateSystem();
 
         requestAnimationFrame(() => this.draw());
     }
@@ -137,6 +139,7 @@ export class World {
         this.addToMap(this.healthbar);
         this.addToMap(this.bottlebar);
         this.addToMap(this.coinbar);
+        this.addToMap(this.healthbarBoss);
     }
 
     addToMap(mO) {
@@ -144,7 +147,7 @@ export class World {
             this.flipImage(mO);
         }
 
-        this.showRectangle(mO);
+        // this.showRectangle(mO);
 
         this.ctx.drawImage(mO.img, mO.x, mO.y, mO.width, mO.height)
         if (mO.otherDirection) {
