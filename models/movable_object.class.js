@@ -1,3 +1,4 @@
+import { AudioHub } from "../js/audiohub.class.js";
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { DrawableObject } from "./drawable_object.class.js";
 
@@ -17,6 +18,7 @@ export class MovableObject extends DrawableObject {
     rW;
     rH;
     offset;
+    deadSoundPlayed = false;
 
     // #endregion
 
@@ -76,6 +78,15 @@ export class MovableObject extends DrawableObject {
             this.rY + this.rH > mO.rY &&
             this.rX < mO.rX + mO.rW &&
             this.rY < mO.rY + this.rH;
+    }
+
+    playDeadSound = () => {
+        if (this.isDead() && !this.deadSoundPlayed) {
+            AudioHub.playOne(AudioHub.CHCKN_DEAD);
+            this.deadSoundPlayed = true;
+            console.log('gespielt');
+            
+        }
     }
 
     // #endregion

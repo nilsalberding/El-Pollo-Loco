@@ -1,3 +1,4 @@
+import { AudioHub } from "../js/audiohub.class.js";
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Character } from "../models/character.class.js";
@@ -42,6 +43,7 @@ export class World {
         this.setWorld();
         IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
         IntervalHub.startInterval(this.checkEndgame, 1000 / 20);
+        AudioHub.playOne(AudioHub.GAME_MUSIC);
     }
 
     // #region methods
@@ -72,8 +74,16 @@ export class World {
 
             } else if (this.character.isColliding(enemy)) {
                 if (!enemy.isDead()) {
+                    AudioHub.playOne(AudioHub.CHR_DMG);
                     this.character.hit();
+                    
                     this.healthbar.setPercentage(this.character.health, Pix.status.health);
+                    if (this.character.otherDirection) {
+                        this.character.x += 50;
+                    }else {
+                        this.character.x -= 50;
+                    }
+                    
                 }
 
             }
@@ -83,6 +93,7 @@ export class World {
                 if (bottle.isColliding(enemy)) {
                     enemy.hit();
                     bottle.isBroken = true;
+                    AudioHub.playOne(AudioHub.BOTTLE_BREAK);
                     setTimeout(() => {
                         const bottleIndex = this.throwableObject.indexOf(bottle);
                         this.throwableObject.splice(bottleIndex, 1);
@@ -93,6 +104,7 @@ export class World {
             // Coins einsammeln
             this.level.collectibles.coins.forEach((coin) => {
                 if (this.character.isColliding(coin)) {
+                    AudioHub.playOne(AudioHub.COIN_COLLECT);
                     Coin.coinPercentage += 20;
                     const coinIndex = this.level.collectibles.coins.indexOf(coin);
                     this.level.collectibles.coins.splice(coinIndex, 1);
@@ -103,6 +115,7 @@ export class World {
             //  Flaschen einsammeln
             this.level.collectibles.bottles.forEach((bottle) => {
                 if (this.character.isColliding(bottle)) {
+                    AudioHub.playOne(AudioHub.BOTTLE_COLLECT);
                     Bottle.bottlePercentage  += 20;
                     const bottleIndex = this.level.collectibles.bottles.indexOf(bottle);
                     this.level.collectibles.bottles.splice(bottleIndex, 1);
@@ -136,10 +149,10 @@ export class World {
     }
 
     addMovableObjects() {
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.backgroundObjects);        
         this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.enemies);
+        this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.collectibles.coins);
         this.addObjectsToMap(this.level.collectibles.bottles);
@@ -166,7 +179,6 @@ export class World {
     };
 
     showRectangle(mO) {
-        // if (mO instanceof Character || mO instanceof Chicken || mO instanceof Endboss || mO instanceof Collectibles) {
         if (mO instanceof MovableObject){
             this.ctx.beginPath();
             this.ctx.lineWidth = '3';

@@ -1,3 +1,4 @@
+import { AudioHub } from "../js/audiohub.class.js";
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Bottle } from "./bottle.class.js";
@@ -37,6 +38,7 @@ export class Character extends MovableObject {
         IntervalHub.startInterval(this.applyGravity, 1000 / 25);
         IntervalHub.startInterval(this.animations, 1000 / 15);
         IntervalHub.startInterval(this.checkFalling, 1000 / 30);
+        IntervalHub.startInterval(this.setSound, 1000 / 4);
 
         console.log(this);
 
@@ -58,6 +60,7 @@ export class Character extends MovableObject {
 
     jump() {
         this.speedY = 17;
+        AudioHub.playOne(AudioHub.CHR_JUMP);
     }
 
     jumpOnEnemy() {
@@ -116,6 +119,14 @@ export class Character extends MovableObject {
             this.playAnimation(Pix.mainChar.walk);
         } else {
             this.playAnimation(Pix.mainChar.idle);
+        }
+    }
+
+    setSound = () => {
+        if ((Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround()) {
+            AudioHub.playOne(AudioHub.CHR_RUN);
+        }else if (!Keyboard.RIGHT || !Keyboard.LEFT){
+            AudioHub.stopOne(AudioHub.CHR_RUN);
         }
     }
 

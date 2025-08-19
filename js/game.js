@@ -1,6 +1,7 @@
 
 import { Keyboard } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
+import { AudioHub } from "./audiohub.class.js";
 
 let canvas;
 let world;

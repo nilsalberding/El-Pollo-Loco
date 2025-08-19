@@ -29,6 +29,7 @@ export class Chicken extends MovableObject {
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60)
         IntervalHub.startInterval(this.animate, 1000 / 10);
         IntervalHub.startInterval(this.moveLeft, 1000 / 60);
+        IntervalHub.startInterval(this.playDeadSound, 1000 / 30);
 
     }
 

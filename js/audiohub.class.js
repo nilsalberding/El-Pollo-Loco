@@ -25,6 +25,7 @@ export class AudioHub {
     static COIN_COLLECT = new MyAudio('../sounds/collectibles/collectSound.wav');
 
     static GAME_START = new MyAudio('../sounds/game/gameStart.mp3');
+    static GAME_MUSIC = new MyAudio('../sounds/game/game-music.mp3')
     static BOTTLE_BREAK = new MyAudio('../sounds/throwable/bottleBreak.mp3');
 
 
@@ -59,9 +60,8 @@ export class AudioHub {
 
 
     // Stoppt das Abspielen einer einzelnen Audiodatei
-    static stopOne(sound, instrumentId) {
-        sound.pause();  // Pausiert das übergebene Audio
-        const instrumentImg = document.getElementById(instrumentId); // nur wichtig für die Visualisierung
-        instrumentImg.classList.remove('active'); // nur wichtig für die Visualisierung
+    static stopOne(sound) {
+        sound.sound.pause();  // Pausiert das übergebene Audio
+
     }
 }

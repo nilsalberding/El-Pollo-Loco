@@ -1,3 +1,4 @@
+import { AudioHub } from "../js/audiohub.class.js";
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { HealthBarBoss } from "./healthbar_boss.class.js";
@@ -19,6 +20,7 @@ export class Endboss extends MovableObject {
     }
 
     static ATTACK_COUNTER = 0;
+    deadSoundPlayed = false; 
 
 
 
@@ -32,8 +34,8 @@ export class Endboss extends MovableObject {
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.attack, 1000 / 0.5);
         IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
-
         IntervalHub.startInterval(this.animate, 1000 / 5);
+        IntervalHub.startInterval(this.playDeadSound, 1000 / 30);
     }
 
     // #region methods
@@ -66,6 +68,13 @@ export class Endboss extends MovableObject {
 
     setHealthbar = () => {
         HealthBarBoss.BossHealth = this.health;
+    }
+
+    playDeadSound = () => {
+        if (this.isDead() && this.deadSoundPlayed){
+            AudioHub.playOne(AudioHub.CHCKN_DEAD)
+            this.deadSoundPlayed = true;
+        }
     }
 
 
