@@ -41,12 +41,21 @@ export class World {
         this.draw();
         this.setWorld();
         IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
+        IntervalHub.startInterval(this.checkEndgame, 1000 / 20);
     }
 
     // #region methods
 
     setWorld() {
         this.character.world = this;
+    }
+
+    checkEndgame = () => {
+        if (this.character.isDead()){
+            setTimeout(() => {
+                IntervalHub.stopAllIntervals();
+            }, 500)
+        }
     }
 
 
@@ -75,7 +84,8 @@ export class World {
                     enemy.hit();
                     bottle.isBroken = true;
                     setTimeout(() => {
-                        this.throwableObject.splice(bottle, 1);
+                        const bottleIndex = this.throwableObject.indexOf(bottle);
+                        this.throwableObject.splice(bottleIndex, 1);
                     }, 200)
                 }
             })
@@ -120,7 +130,7 @@ export class World {
         // #endregion
 
         // Koordinatensystem
-        this.setCoordinateSystem();
+        // this.setCoordinateSystem();
 
         requestAnimationFrame(() => this.draw());
     }

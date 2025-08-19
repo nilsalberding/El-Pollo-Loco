@@ -5,7 +5,7 @@ import { MovableObject } from "./movable_object.class.js";
 
 export class Endboss extends MovableObject {
 
-    x = 500;
+    x = 2500;
     y = 180;
     height = 250;
     health = 100;
@@ -31,7 +31,7 @@ export class Endboss extends MovableObject {
         this.width = this.height * 0.86;
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.attack, 1000 / 0.5);
-        IntervalHub.startInterval(this.setHealthbar, 1000 / 1);
+        IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
 
         IntervalHub.startInterval(this.animate, 1000 / 5);
     }
@@ -65,8 +65,7 @@ export class Endboss extends MovableObject {
     }
 
     setHealthbar = () => {
-        
-        
+        HealthBarBoss.BossHealth = this.health;
     }
 
 

@@ -16,12 +16,23 @@ export class Level {
     backgroundObjects;
     collectibles = {
         coins: [
-            new Coin(150, 150),
-            new Coin(300, 150)
+            new Coin(250, 150),
+            new Coin(500, 150),
+            new Coin(780, 250),
+            new Coin(1200,250),
+            new Coin(1400,150),
         ],
         bottles: [
             new Bottle(300), 
-            new Bottle(400)
+            new Bottle(400),
+            new Bottle(500),
+            new Bottle(550),
+            new Bottle(620),
+            new Bottle(900),
+            new Bottle(1050),
+            new Bottle(1200),
+            new Bottle(1430),
+            new Bottle(1600),
         ]
 
     }
@@ -35,6 +46,17 @@ export class Level {
             new MiniChicken(),
             new Chicken(),
             new Chicken(),
+            new MiniChicken(),
+            new Chicken(),
+            new MiniChicken(),
+            new Chicken(),
+            new Chicken(),
+            new MiniChicken(),
+            new Chicken(),
+            new MiniChicken(),
+            new Chicken(),
+            new Chicken(),
+            new MiniChicken(),
             new Endboss()
         ];
         this.clouds = [
