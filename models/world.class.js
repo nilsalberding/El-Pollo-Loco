@@ -42,7 +42,7 @@ export class World {
         this.draw();
         this.setWorld();
         IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
-        IntervalHub.startInterval(this.checkEndgame, 1000 / 20);
+        IntervalHub.startInterval(this.checkEndgame, 1000 / 10);
         AudioHub.playOne(AudioHub.GAME_MUSIC);
     }
 
@@ -56,6 +56,9 @@ export class World {
         if (this.character.isDead()){
             setTimeout(() => {
                 IntervalHub.stopAllIntervals();
+                const endscreen = document.getElementById('game-over-screen');
+                endscreen.classList.remove('d-none');
+                endscreen.classList.add('d-flex');
             }, 500)
         }
     }

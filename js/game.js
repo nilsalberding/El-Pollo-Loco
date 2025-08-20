@@ -24,7 +24,31 @@ function startGame() {
     init();
 }
 
+function showControls() {
+    const startScreen = document.getElementById('start-screen');
+    const controlsScreen = document.getElementById('controls-screen');
+
+    startScreen.classList.toggle('d-none');
+    startScreen.classList.toggle('d-flex');
+    controlsScreen.classList.toggle('d-none');
+    controlsScreen.classList.toggle('d-flex');
+}
+
+function showLegalNotice() {
+    const startScreen = document.getElementById('start-screen');
+    const legalNoticeScreen = document.getElementById('legal-notice-screen');
+
+    startScreen.classList.toggle('d-none');
+    startScreen.classList.toggle('d-flex');
+    legalNoticeScreen.classList.toggle('d-none');
+    legalNoticeScreen.classList.toggle('d-flex');
+}
+
 document.getElementById('start-button').addEventListener('click', startGame);
+document.getElementById('btn-controls').addEventListener('click', showControls);
+document.getElementById('btn-controls-back').addEventListener('click', showControls);
+document.getElementById('btn-legal-notice').addEventListener('click', showLegalNotice);
+document.getElementById('btn-legal-notice-back').addEventListener('click', showLegalNotice);
 
 // init();
 

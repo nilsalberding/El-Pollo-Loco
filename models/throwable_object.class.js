@@ -39,7 +39,7 @@ export class ThrowableObject extends MovableObject {
         IntervalHub.startInterval(this.throwRange, 1000 / 30);
     }
 
-    throwRange = () => {
+    throwRange = () => { // BUG : flasche ändert ihre Richtung während des Flugs, wenn pepe sich dreht
         if (!this.isBroken) {
             this.y -= this.speedY;
             this.speedY -= this.acceleration;

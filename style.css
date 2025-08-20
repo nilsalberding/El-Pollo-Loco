@@ -32,15 +32,18 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('../img/background_image/desert.png');
+    background: linear-gradient(#4185A6, #FDD8A4, #64100E);
+    /* background-image: url('../img/background_image/desert.png');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    background-repeat: no-repeat; */
     font-family: 'Rye';
     font-size: 24px;
     color: #ED9046;
-    text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.8);
+
+    h1 {
+        text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.8);
+    }
 }
 
 #wrapper {
@@ -53,7 +56,6 @@ body {
     }
 
     div {
-        background-image: url('../img/9_intro_outro_screens/start/startscreen_1.png');
         width: 100%;
         height: 100%;
         background-position: center;
@@ -62,12 +64,68 @@ body {
         left: 0;
         background-size: 100% 100%;
         background-repeat: no-repeat;
+    }
+
+    #start-screen {
+        background-image: url('../img/9_intro_outro_screens/start/startscreen_1.png');
         justify-content: center;
         align-items: flex-start;
 
-        button{
+        button {
             margin: 32px;
         }
 
+    }
+
+    #controls-screen {
+        background-color: #ED9046;
+        color: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        table {
+            width: 100%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            tbody {
+                width: 100%;
+            }
+
+            tr {
+                width: 100%;
+                
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                td {
+                    padding: 32px;
+                    width: 50%;
+                    text-align: center;
+                }
+            }
+        }
+
+
+
+    }
+    #legal-notice-screen {
+        background-color: #ED9046;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        overflow: auto;
+
+        p {
+            padding: 16px;
+        }
+    }
+    #game-over-screen {
+        background-image: url('../img/9_intro_outro_screens/game_over/oh no you lost!.png');
     }
 }
