@@ -2,6 +2,7 @@
 import { Keyboard } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
 import { AudioHub } from "./audiohub.class.js";
+import { IntervalHub } from "./intervall_hub.class.js";
 
 let canvas;
 let world;
@@ -11,7 +12,21 @@ function init() {
     world = new World(canvas);
 };
 
-init();
+function restart() {
+    IntervalHub.stopAllIntervals();
+    init();
+}
+
+function startGame() {
+    const startScreen = document.getElementById('start-screen');
+    startScreen.classList.toggle('d-none');
+    startScreen.classList.toggle('d-flex');
+    init();
+}
+
+document.getElementById('start-button').addEventListener('click', startGame);
+
+// init();
 
 
 
@@ -64,10 +79,10 @@ window.addEventListener("keyup", (e) => {
 // TODO : Startbildschirm erzeugen
 // TODO : Fullscreen einstellen
 // TODO : Steuerung anzeigen + Mobile-Steuerung einrichten
-// TODO : miniChicken Klasse erstellen und einfügen
+
 // TODO : animation nur einmal durchlaufen lassen bei bestimmten funktionen
 
-// TODO : level strukturieren und Gegner korrekt einfügen
+ 
 // TODO : Spiel responsive machen
 // TODO : Game-Over Screen
 // TODO : Endgegner besiegen

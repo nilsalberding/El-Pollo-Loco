@@ -1,17 +1,73 @@
-body{
+* {
+    position: relative;
+}
+
+.d-none {
+    display: none;
+}
+
+.d-flex {
+    display: flex;
+}
+
+button {
+    cursor: pointer;
+    background-color: #ED9046;
+    color: white;
+    border-color: white;
+    padding: 8px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 300ms;
+    font-family: 'Rye';
+}
+
+button:hover {
+    background-color: #FFD600;
+}
+
+body {
     height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url(./img/background_image/chicken_background.jpg);
+    background-image: url('../img/background_image/desert.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: teal;
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-family: 'Rye';
+    font-size: 24px;
+    color: #ED9046;
+    text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.8);
 }
 
-canvas{
-    background-color: black;
+#wrapper {
+    width: 720px;
+    height: 480px;
+
+    canvas {
+        background-color: black;
+
+    }
+
+    div {
+        background-image: url('../img/9_intro_outro_screens/start/startscreen_1.png');
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        justify-content: center;
+        align-items: flex-start;
+
+        button{
+            margin: 32px;
+        }
+
+    }
 }
