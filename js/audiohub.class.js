@@ -27,13 +27,14 @@ export class AudioHub {
     static GAME_START = new MyAudio('../sounds/game/gameStart.mp3');
     static GAME_MUSIC = new MyAudio('../sounds/game/game-music.mp3')
     static BOTTLE_BREAK = new MyAudio('../sounds/throwable/bottleBreak.mp3');
+    static VICTORY = new MyAudio('../sounds/game/victory.mp3')
 
 
 
 
     // Array, das alle definierten Audio-Dateien enthält
 
-    static allSounds = [AudioHub.BOSS_APPR, AudioHub.BOTTLE_BREAK, AudioHub.BOTTLE_COLLECT, AudioHub.CHCKN_DEAD, AudioHub.CHR_DEAD, AudioHub.CHR_DMG, AudioHub.CHR_RUN, AudioHub.CHR_JUMP, AudioHub.CHR_SNORING, AudioHub.COIN_COLLECT, AudioHub.GAME_START, AudioHub.MINICHCKN_DEAD];
+    static allSounds = [AudioHub.BOSS_APPR, AudioHub.BOTTLE_BREAK, AudioHub.BOTTLE_COLLECT, AudioHub.CHCKN_DEAD, AudioHub.CHR_DEAD, AudioHub.CHR_DMG, AudioHub.CHR_RUN, AudioHub.CHR_JUMP, AudioHub.CHR_SNORING, AudioHub.COIN_COLLECT, AudioHub.GAME_START, AudioHub.MINICHCKN_DEAD, AudioHub.GAME_MUSIC, AudioHub.VICTORY];
 
 
     // Spielt eine einzelne Audiodatei ab
@@ -53,11 +54,9 @@ export class AudioHub {
     // Stoppt das Abspielen aller Audiodateien
     static stopAll() {
         AudioHub.allSounds.forEach(sound => {
-            sound.pause();  // Pausiert jedes Audio in der Liste
+            sound.sound.pause();  // Pausiert jedes Audio in der Liste
         });
-        document.getElementById('volume').value = 0.2;  // Setzt den Sound-Slider wieder auf 0.2
-        const instrumentImages = document.querySelectorAll('.sound_img'); // nur wichtig für die Visualisierung
-        instrumentImages.forEach(img => img.classList.remove('active')); // nur wichtig für die Visualisierung
+
     }
 
 
