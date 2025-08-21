@@ -19,12 +19,13 @@ export class Character extends MovableObject {
     speedX = 7;
     health = 100;
     offset = {
-        top: 85,
+        top: 100,
         right: 30,
         left: 20,
         bottom: 10
     }
     isJumping = false;
+    firstContactBoss = false;
     static LOOKLEFT = false;
     // #endregion
 
@@ -60,11 +61,16 @@ export class Character extends MovableObject {
 
     jump() {
         this.speedY = 17;
+        this.isJumping = true;
+        this.currentImage = 0;
         AudioHub.playOne(AudioHub.CHR_JUMP);
     }
 
     jumpOnEnemy() {
         this.speedY = 10;
+        this.isJumping = true;
+        this.currentImage = 0;
+        AudioHub.playOne(AudioHub.CHR_JUMP);
     }
 
     checkFalling = () => {
@@ -98,7 +104,6 @@ export class Character extends MovableObject {
             this.moveLeftChar();
         }
         if (Keyboard.SPACE && !this.isAboveGround()) {
-            this.isJumping = false;
             this.jump();
         }
         if (Keyboard.D) {
@@ -109,8 +114,12 @@ export class Character extends MovableObject {
 
     animations = () => {
 
-        if (this.isAboveGround()) {
-            this.playAnimation(Pix.mainChar.jump);
+        if (this.isAboveGround() && this.isJumping) {
+            this.playJumpAnimation(Pix.mainChar.jump);
+
+        } else if (this.isAboveGround()) {
+            this.img = this.imageCache[Pix.mainChar.jump[6]];
+
         } else if (this.isDead()) {
             this.playAnimation(Pix.mainChar.dead);
         } else if (this.isHurt) {
@@ -125,20 +134,20 @@ export class Character extends MovableObject {
     setSound = () => {
         if ((Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround()) {
             AudioHub.playOne(AudioHub.CHR_RUN);
-        }else if (!Keyboard.RIGHT || !Keyboard.LEFT){
+        } else if (!Keyboard.RIGHT || !Keyboard.LEFT) {
             AudioHub.stopOne(AudioHub.CHR_RUN);
         }
     }
 
 
     playJumpAnimation(pixArray) {
-        if (!this.isJumping) {
+        if (this.isJumping) {
             let i = this.currentImage % pixArray.length;
             let path = pixArray[i];
             this.img = this.imageCache[path];
             this.currentImage++;
             if (i == pixArray.length - 1) {
-                this.isJumping = true;
+                this.isJumping = false;
             }
         }
     }
