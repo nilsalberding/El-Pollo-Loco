@@ -82,6 +82,8 @@ export class World {
                 if (!enemy.isDead()) {
                     this.character.jumpOnEnemy();
                     enemy.hit();
+                    console.log(enemy);
+                    
                 }
 
 

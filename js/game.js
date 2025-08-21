@@ -8,8 +8,10 @@ let canvas;
 let world;
 
 function init() {
-    canvas = document.getElementById('canvas');
+    
+    canvas = document.getElementById('canvas');    
     world = new World(canvas);
+    
 };
 
 function restart() {
@@ -18,37 +20,90 @@ function restart() {
 }
 
 function startGame() {
+    AudioHub.playOne(AudioHub.GAME_START);
     const startScreen = document.getElementById('start-screen');
     startScreen.classList.toggle('d-none');
     startScreen.classList.toggle('d-flex');
     init();
 }
 
-function showControls() {
+// function showControls() {
+//     const startScreen = document.getElementById('start-screen');
+//     const controlsScreen = document.getElementById('controls-screen');
+
+//     startScreen.classList.toggle('d-none');
+//     startScreen.classList.toggle('d-flex');
+//     controlsScreen.classList.toggle('d-none');
+//     controlsScreen.classList.toggle('d-flex');
+// }
+
+// function showLegalNotice() {
+//     const startScreen = document.getElementById('start-screen');
+//     const legalNoticeScreen = document.getElementById('legal-notice-screen');
+
+//     startScreen.classList.toggle('d-none');
+//     startScreen.classList.toggle('d-flex');
+//     legalNoticeScreen.classList.toggle('d-none');
+//     legalNoticeScreen.classList.toggle('d-flex');
+// }
+
+// function startScreenLose() {
+//     const startScreen = document.getElementById('start-screen');
+//     const loserScreen = document.getElementById('loser-screen');
+
+//     startScreen.classList.toggle('d-none');
+//     startScreen.classList.toggle('d-flex');
+//     loserScreen.classList.toggle('d-none');
+//     loserScreen.classList.toggle('d-flex');
+// }
+
+
+ function switchScreen(screenID) {
     const startScreen = document.getElementById('start-screen');
-    const controlsScreen = document.getElementById('controls-screen');
+    const endScreen = document.getElementById(screenID);
 
     startScreen.classList.toggle('d-none');
     startScreen.classList.toggle('d-flex');
-    controlsScreen.classList.toggle('d-none');
-    controlsScreen.classList.toggle('d-flex');
-}
+    endScreen.classList.toggle('d-none');
+    endScreen.classList.toggle('d-flex');
+ }
 
-function showLegalNotice() {
-    const startScreen = document.getElementById('start-screen');
-    const legalNoticeScreen = document.getElementById('legal-notice-screen');
-
-    startScreen.classList.toggle('d-none');
-    startScreen.classList.toggle('d-flex');
-    legalNoticeScreen.classList.toggle('d-none');
-    legalNoticeScreen.classList.toggle('d-flex');
-}
 
 document.getElementById('start-button').addEventListener('click', startGame);
-document.getElementById('btn-controls').addEventListener('click', showControls);
-document.getElementById('btn-controls-back').addEventListener('click', showControls);
-document.getElementById('btn-legal-notice').addEventListener('click', showLegalNotice);
-document.getElementById('btn-legal-notice-back').addEventListener('click', showLegalNotice);
+
+// btns-controls
+document.getElementById('btn-controls').addEventListener('click', () => {
+    switchScreen('controls-screen');
+});
+
+document.getElementById('btn-controls-back').addEventListener('click', () => {
+    switchScreen('controls-screen');
+});
+
+// btn-legal-notice-screen
+document.getElementById('btn-legal-notice').addEventListener('click', () => {
+switchScreen('legal-notice-screen')
+});
+document.getElementById('btn-legal-notice-back').addEventListener('click', () => {
+switchScreen('legal-notice-screen')
+});
+
+
+// btn-loser screen
+document.getElementById('btn-restart-lose').addEventListener('click', () => {
+switchScreen('loser-screen')
+});
+
+// btn-winner-screen
+document.getElementById('btn-restart-win').addEventListener('click', () => {
+switchScreen('winner-screen')
+});
+
+
+
+
+
+
 
 // init();
 

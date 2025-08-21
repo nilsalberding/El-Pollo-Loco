@@ -18,6 +18,7 @@ button {
     padding: 8px;
     font-weight: bold;
     border-radius: 8px;
+    margin: 32px;
     transition: 300ms;
     font-family: 'Rye';
 }
@@ -70,11 +71,6 @@ body {
         background-image: url('../img/9_intro_outro_screens/start/startscreen_1.png');
         justify-content: center;
         align-items: flex-start;
-
-        button {
-            margin: 32px;
-        }
-
     }
 
     #controls-screen {
@@ -97,7 +93,7 @@ body {
 
             tr {
                 width: 100%;
-                
+
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
@@ -113,6 +109,7 @@ body {
 
 
     }
+
     #legal-notice-screen {
         background-color: #ED9046;
         flex-direction: column;
@@ -125,7 +122,18 @@ body {
             padding: 16px;
         }
     }
-    #game-over-screen {
+
+    #loser-screen {
         background-image: url('../img/9_intro_outro_screens/game_over/oh no you lost!.png');
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    #winner-screen {
+        background-image: url('../img/You won, you lost/You Win A.png');
+        background-color: rgba(0, 0, 0, 0.429);
+        background-size: contain;
+        justify-content: center;
+        align-items: flex-end;
     }
 }

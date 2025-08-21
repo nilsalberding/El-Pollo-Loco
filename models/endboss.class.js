@@ -38,8 +38,10 @@ export class Endboss extends MovableObject {
         IntervalHub.startInterval(this.attack, 1000 / 0.5);
         IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
         IntervalHub.startInterval(this.animate, 1000 / 5);
-        IntervalHub.startInterval(this.playDeadSound, 1000 / 30);
         IntervalHub.startInterval(this.applyGravity, 100 / 3);
+        IntervalHub.startInterval(this.checkDead, 1000 / 30);
+        console.log(this);
+        
     }
 
     // #region methods
@@ -85,13 +87,23 @@ export class Endboss extends MovableObject {
 
     checkDead = () => {
         if (this.isDead() && !this.deadSoundPlayed) {
-            this.playDeadSound();
+            console.log('boss dead');
             
-
+            setTimeout(() => {
+                this.playBossDeadSound();
+                this.showWinnerScreen();
+                IntervalHub.stopAllIntervals();
+            }, 500)
         }
     }
 
-    playDeadSound() {
+    showWinnerScreen() {
+        const endscreen = document.getElementById('winner-screen');
+        endscreen.classList.remove('d-none');
+        endscreen.classList.add('d-flex');
+    }
+
+    playBossDeadSound() {
         AudioHub.playOne(AudioHub.CHCKN_DEAD)
         this.deadSoundPlayed = true;
     }

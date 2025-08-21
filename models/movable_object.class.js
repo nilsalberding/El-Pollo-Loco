@@ -84,8 +84,6 @@ export class MovableObject extends DrawableObject {
         if (this.isDead() && !this.deadSoundPlayed) {
             AudioHub.playOne(AudioHub.CHCKN_DEAD);
             this.deadSoundPlayed = true;
-            console.log('gespielt');
-            
         }
     }
 
