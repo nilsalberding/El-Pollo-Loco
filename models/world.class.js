@@ -43,6 +43,7 @@ export class World {
         this.setWorld();
         IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
         IntervalHub.startInterval(this.checkEndgame, 1000 / 10);
+        IntervalHub.startInterval(this.spawnEndboss, 1000 / 30);
         AudioHub.playOne(AudioHub.GAME_MUSIC);
     }
 
@@ -55,14 +56,23 @@ export class World {
     checkEndgame = () => {
         if (this.character.isDead()){
             setTimeout(() => {
+                AudioHub.playOne(AudioHub.CHR_DEAD);
                 IntervalHub.stopAllIntervals();
-                const endscreen = document.getElementById('game-over-screen');
+                const endscreen = document.getElementById('loser-screen');
                 endscreen.classList.remove('d-none');
                 endscreen.classList.add('d-flex');
             }, 500)
         }
     }
 
+    spawnEndboss = () => {
+        if(this.character.x > 2500 && !Endboss.FIRST_CONTACT){
+            Endboss.FIRST_CONTACT = true;
+            this.level.enemies.push(new Endboss);
+            AudioHub.playOne(AudioHub.BOSS_APPR);
+            
+        }
+    }
 
 
     checkCollisions = () => {

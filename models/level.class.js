@@ -36,7 +36,7 @@ export class Level {
         ]
 
     }
-    level_end_x = 2800;
+    level_end_x = 4000;
 
     // #endregion
 
@@ -56,8 +56,7 @@ export class Level {
             new MiniChicken(),
             new Chicken(),
             new Chicken(),
-            new MiniChicken(),
-            new Endboss()
+            new MiniChicken()
         ];
         this.clouds = [
             new Cloud()

@@ -6,10 +6,11 @@ import { MovableObject } from "./movable_object.class.js";
 
 export class Endboss extends MovableObject {
 
-    x = 2500;
-    y = 180;
+    x = 3000;
+    y = -200;
     height = 250;
     health = 100;
+    speedX = 5;
 
 
     offset = {
@@ -20,7 +21,8 @@ export class Endboss extends MovableObject {
     }
 
     static ATTACK_COUNTER = 0;
-    deadSoundPlayed = false; 
+    static FIRST_CONTACT = false;
+    deadSoundPlayed = false;
 
 
 
@@ -30,26 +32,34 @@ export class Endboss extends MovableObject {
         this.loadImages(Pix.boss.dead);
         this.loadImages(Pix.boss.attack);
         this.loadImages(Pix.boss.hurt);
+        this.loadImages(Pix.boss.walk);
         this.width = this.height * 0.86;
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.attack, 1000 / 0.5);
         IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
         IntervalHub.startInterval(this.animate, 1000 / 5);
         IntervalHub.startInterval(this.playDeadSound, 1000 / 30);
+        IntervalHub.startInterval(this.applyGravity, 100 / 3);
     }
 
     // #region methods
 
     animate = () => {
-        if (this.isDead()) {
+        let i = -10;
+        if (i < Pix.boss.alert) {
+            this.playAnimation(Pix.boss.alert)
+        }
+        else if (this.isDead()) {
             this.playAnimation(Pix.boss.dead);
-        }else if (this.isHurt) {
+        } else if (this.isHurt) {
             this.playAnimation(Pix.boss.hurt);
-        }else if (this.attackReady()) {
+        } else if (this.attackReady()) {
             this.playAnimation(Pix.boss.attack);
         } else {
-            this.playAnimation(Pix.boss.alert);
+            this.playAnimation(Pix.boss.walk);
+            this.moveLeft();
         }
+        i++;
     }
 
     attackReady() {
@@ -59,10 +69,13 @@ export class Endboss extends MovableObject {
     attack = () => {
         Endboss.ATTACK_COUNTER++
         if (this.attackReady()) {
-            this.x -= 130;
             setTimeout(() => {
-                this.x += 70;
-            }, 200);
+                this.x -= 130;
+
+                setTimeout(() => {
+                    this.x += 70;
+                }, 200);
+            }, 1000);
         }
     }
 
@@ -70,11 +83,17 @@ export class Endboss extends MovableObject {
         HealthBarBoss.BossHealth = this.health;
     }
 
-    playDeadSound = () => {
-        if (this.isDead() && this.deadSoundPlayed){
-            AudioHub.playOne(AudioHub.CHCKN_DEAD)
-            this.deadSoundPlayed = true;
+    checkDead = () => {
+        if (this.isDead() && !this.deadSoundPlayed) {
+            this.playDeadSound();
+            
+
         }
+    }
+
+    playDeadSound() {
+        AudioHub.playOne(AudioHub.CHCKN_DEAD)
+        this.deadSoundPlayed = true;
     }
 
 
