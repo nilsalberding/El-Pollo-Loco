@@ -1,4 +1,9 @@
 * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    text-decoration: none;
     position: relative;
 }
 
@@ -34,16 +39,17 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(#4185A6, #FDD8A4, #64100E);
-    /* background-image: url('../img/background_image/desert.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; */
     font-family: 'Rye';
     font-size: 24px;
     color: #ED9046;
 
     h1 {
         text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.8);
+        margin: 24px;
+
+        @media (max-width: 1024px) {
+            display: none;
+        }
     }
 }
 
@@ -51,8 +57,15 @@ body {
     width: 720px;
     height: 480px;
 
+    @media (max-width: 720px) {
+        aspect-ratio: 720 / 480;
+        width: 100%;
+        height: 100dvh;
+    }
+
     canvas {
         background-color: black;
+        display: block;
 
     }
 
@@ -135,5 +148,67 @@ body {
         background-size: contain;
         justify-content: center;
         align-items: flex-end;
+    }
+
+    #mobile-btns {
+
+        align-items: flex-end;
+        justify-content: space-between;
+
+        @media (min-width: 900px) {
+            display: none;
+        }
+
+        div {
+            position: relative;
+            width: auto;
+            height: auto;
+            margin: 32px;
+        }
+
+        button {
+            border: none;
+            background-color: transparent;
+            width: 48px;
+            height: 48px;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #btn-left {
+            background-image: url('../img/icons/mobile-left.png');
+        }
+
+        #btn-right {
+            background-image: url('../img/icons/mobile-right.png');
+        }
+
+        #btn-jump {
+            background-image: url('../img/icons/mobile-jump.png');
+        }
+
+        #btn-throw {
+            background-image: url('../img/icons/mobile-bottle.png');
+        }
+    }
+}
+
+
+
+@media only screen and (max-width: 720px) {
+
+    canvas {
+        width: 100%;
+    }
+}
+
+
+@media only screen and (max-height: 480px) {
+
+    /* #wrapper {
+        height: 100dvh;
+    } */
+    canvas {
+        height: 100dvh;
     }
 }

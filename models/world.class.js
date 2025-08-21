@@ -1,4 +1,5 @@
 import { AudioHub } from "../js/audiohub.class.js";
+import { toggleMobileBtns } from "../js/game.js";
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Character } from "../models/character.class.js";
@@ -42,7 +43,7 @@ export class World {
         this.draw();
         this.setWorld();
         IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
-        IntervalHub.startInterval(this.checkEndgame, 1000 / 10);
+        IntervalHub.startInterval(this.checkEndgame, 1000 / 1);
         IntervalHub.startInterval(this.spawnEndboss, 1000 / 30);
         AudioHub.playOne(AudioHub.GAME_MUSIC);
     }
@@ -54,23 +55,24 @@ export class World {
     }
 
     checkEndgame = () => {
-        if (this.character.isDead()){
+        if (this.character.isDead()) {
             setTimeout(() => {
                 AudioHub.playOne(AudioHub.CHR_DEAD);
                 IntervalHub.stopAllIntervals();
                 const endscreen = document.getElementById('loser-screen');
                 endscreen.classList.remove('d-none');
                 endscreen.classList.add('d-flex');
+                toggleMobileBtns();
             }, 500)
         }
     }
 
     spawnEndboss = () => {
-        if(this.character.x > 2500 && !Endboss.FIRST_CONTACT){
-            Endboss.FIRST_CONTACT = true;
+        if (this.character.x > 2500 && !this.character.firstContactBoss) {
+            this.character.firstContactBoss = true;
             this.level.enemies.push(new Endboss);
             AudioHub.playOne(AudioHub.BOSS_APPR);
-            
+
         }
     }
 
@@ -80,10 +82,11 @@ export class World {
             // Collision Character jump on Enemy
             if (this.character.isColliding(enemy) && this.character.isFalling) {
                 if (!enemy.isDead()) {
+                    if (!enemy.isHurt) {
+                        AudioHub.playOne(AudioHub.CHCKN_DEAD);
+                    }
                     this.character.jumpOnEnemy();
                     enemy.hit();
-                    console.log(enemy);
-                    
                 }
 
 
@@ -91,14 +94,14 @@ export class World {
                 if (!enemy.isDead()) {
                     AudioHub.playOne(AudioHub.CHR_DMG);
                     this.character.hit();
-                    
+
                     this.healthbar.setPercentage(this.character.health, Pix.status.health);
                     if (this.character.otherDirection) {
                         this.character.x += 50;
-                    }else {
+                    } else {
                         this.character.x -= 50;
                     }
-                    
+
                 }
 
             }
@@ -131,10 +134,10 @@ export class World {
             this.level.collectibles.bottles.forEach((bottle) => {
                 if (this.character.isColliding(bottle)) {
                     AudioHub.playOne(AudioHub.BOTTLE_COLLECT);
-                    Bottle.bottlePercentage  += 20;
+                    Bottle.bottlePercentage += 20;
                     const bottleIndex = this.level.collectibles.bottles.indexOf(bottle);
                     this.level.collectibles.bottles.splice(bottleIndex, 1);
-                    this.bottlebar.setPercentage(Bottle.bottlePercentage,Pix.status.bottle);
+                    this.bottlebar.setPercentage(Bottle.bottlePercentage, Pix.status.bottle);
                 }
             })
         })
@@ -164,7 +167,7 @@ export class World {
     }
 
     addMovableObjects() {
-        this.addObjectsToMap(this.level.backgroundObjects);        
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
@@ -194,7 +197,7 @@ export class World {
     };
 
     showRectangle(mO) {
-        if (mO instanceof MovableObject){
+        if (mO instanceof MovableObject) {
             this.ctx.beginPath();
             this.ctx.lineWidth = '3';
             this.ctx.strokeStyle = 'blue';

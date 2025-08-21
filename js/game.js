@@ -21,51 +21,31 @@ function restart() {
 
 function startGame() {
     AudioHub.playOne(AudioHub.GAME_START);
-    const startScreen = document.getElementById('start-screen');
-    startScreen.classList.toggle('d-none');
-    startScreen.classList.toggle('d-flex');
+
+    toggleStartScreen();
+    toggleMobileBtns();
     init();
 }
 
-// function showControls() {
-//     const startScreen = document.getElementById('start-screen');
-//     const controlsScreen = document.getElementById('controls-screen');
-
-//     startScreen.classList.toggle('d-none');
-//     startScreen.classList.toggle('d-flex');
-//     controlsScreen.classList.toggle('d-none');
-//     controlsScreen.classList.toggle('d-flex');
-// }
-
-// function showLegalNotice() {
-//     const startScreen = document.getElementById('start-screen');
-//     const legalNoticeScreen = document.getElementById('legal-notice-screen');
-
-//     startScreen.classList.toggle('d-none');
-//     startScreen.classList.toggle('d-flex');
-//     legalNoticeScreen.classList.toggle('d-none');
-//     legalNoticeScreen.classList.toggle('d-flex');
-// }
-
-// function startScreenLose() {
-//     const startScreen = document.getElementById('start-screen');
-//     const loserScreen = document.getElementById('loser-screen');
-
-//     startScreen.classList.toggle('d-none');
-//     startScreen.classList.toggle('d-flex');
-//     loserScreen.classList.toggle('d-none');
-//     loserScreen.classList.toggle('d-flex');
-// }
-
-
  function switchScreen(screenID) {
-    const startScreen = document.getElementById('start-screen');
     const endScreen = document.getElementById(screenID);
 
+    endScreen.classList.toggle('d-none');
+    endScreen.classList.toggle('d-flex');    
+    toggleStartScreen();
+ }
+
+ function toggleStartScreen() {
+    const startScreen = document.getElementById('start-screen');
     startScreen.classList.toggle('d-none');
     startScreen.classList.toggle('d-flex');
-    endScreen.classList.toggle('d-none');
-    endScreen.classList.toggle('d-flex');
+ }
+
+export function toggleMobileBtns() {
+    const btns = document.getElementById('mobile-btns');
+    btns.classList.toggle('d-none');
+    btns.classList.toggle('d-flex');
+
  }
 
 
@@ -99,19 +79,6 @@ document.getElementById('btn-restart-win').addEventListener('click', () => {
 switchScreen('winner-screen')
 });
 
-
-
-
-
-
-
-// init();
-
-
-
-// window.addEventListener("keydown", (e) => {
-//     console.log(e)
-// })
 
 window.addEventListener("keydown", (e) => {
     if (e.key == ' ') {
@@ -155,7 +122,7 @@ window.addEventListener("keyup", (e) => {
     }
 }) 
 
-// TODO : Startbildschirm erzeugen
+
 // TODO : Fullscreen einstellen
 // TODO : Steuerung anzeigen + Mobile-Steuerung einrichten
 
@@ -163,5 +130,3 @@ window.addEventListener("keyup", (e) => {
 
  
 // TODO : Spiel responsive machen
-// TODO : Game-Over Screen
-// TODO : Endgegner besiegen
