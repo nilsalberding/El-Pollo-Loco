@@ -1,5 +1,5 @@
 import { AudioHub } from "../js/audiohub.class.js";
-import { toggleMobileBtns } from "../js/game.js";
+import { toggleScreen } from "../js/game.js";
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { HealthBarBoss } from "./healthbar_boss.class.js";
@@ -93,7 +93,7 @@ export class Endboss extends MovableObject {
                 IntervalHub.stopAllIntervals();
                 AudioHub.stopAll();
                 AudioHub.playOne(AudioHub.VICTORY);
-                toggleMobileBtns();
+                toggleScreen('mobile-btns');
             }, 500)
         }
     }
@@ -108,8 +108,6 @@ export class Endboss extends MovableObject {
         AudioHub.playOne(AudioHub.CHCKN_DEAD)
         this.deadSoundPlayed = true;
     }
-
-
 
     // #endregion
 }

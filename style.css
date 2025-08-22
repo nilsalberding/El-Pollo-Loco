@@ -43,7 +43,7 @@ body {
     font-size: 24px;
     color: #ED9046;
 
-    h1 {
+    #title {
         text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.8);
         margin: 24px;
 
@@ -81,7 +81,7 @@ body {
     }
 
     #start-screen {
-        background-image: url('../img/9_intro_outro_screens/start/startscreen_1.png');
+        background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
         justify-content: center;
         align-items: flex-start;
     }
@@ -137,13 +137,13 @@ body {
     }
 
     #loser-screen {
-        background-image: url('../img/9_intro_outro_screens/game_over/oh no you lost!.png');
+        background-image: url('./img/9_intro_outro_screens/game_over/oh no you lost!.png');
         justify-content: center;
         align-items: flex-end;
     }
 
     #winner-screen {
-        background-image: url('../img/You won, you lost/You Win A.png');
+        background-image: url('./img/You won, you lost/You Win A.png');
         background-color: rgba(0, 0, 0, 0.429);
         background-size: contain;
         justify-content: center;
@@ -176,19 +176,27 @@ body {
         }
 
         #btn-left {
-            background-image: url('../img/icons/mobile-left.png');
+            background-image: url('./img/icons/mobile-left.png');
         }
 
         #btn-right {
-            background-image: url('../img/icons/mobile-right.png');
+            background-image: url('./img/icons/mobile-right.png');
         }
 
         #btn-jump {
-            background-image: url('../img/icons/mobile-jump.png');
+            background-image: url('./img/icons/mobile-jump.png');
         }
 
         #btn-throw {
-            background-image: url('../img/icons/mobile-bottle.png');
+            background-image: url('./img/icons/mobile-bottle.png');
+        }
+    }
+    #loading-screen {
+        background-color: #ED9046;
+        align-items: center;
+        justify-content: center;
+        h1 {
+            color: white;
         }
     }
 }

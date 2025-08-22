@@ -19,65 +19,64 @@ function restart() {
     init();
 }
 
+export function toggleScreen(screenID) {
+    const screen = document.getElementById(screenID);
+
+    screen.classList.toggle('d-none');
+    screen.classList.toggle('d-flex'); 
+}
+
+function toggleWithStartScreen(screenID) {
+    toggleScreen('start-screen');
+    toggleScreen(screenID);
+}
+
 function startGame() {
     AudioHub.playOne(AudioHub.GAME_START);
 
-    toggleStartScreen();
-    toggleMobileBtns();
+    toggleWithStartScreen('loading-screen');    
     init();
+    setTimeout(() => {
+        toggleScreen('loading-screen');    
+        toggleScreen('mobile-btns');
+        AudioHub.playOne(AudioHub.GAME_MUSIC);
+    }, 1000 * 3);
 }
 
- function switchScreen(screenID) {
-    const endScreen = document.getElementById(screenID);
-
-    endScreen.classList.toggle('d-none');
-    endScreen.classList.toggle('d-flex');    
-    toggleStartScreen();
- }
-
- function toggleStartScreen() {
-    const startScreen = document.getElementById('start-screen');
-    startScreen.classList.toggle('d-none');
-    startScreen.classList.toggle('d-flex');
- }
-
-export function toggleMobileBtns() {
-    const btns = document.getElementById('mobile-btns');
-    btns.classList.toggle('d-none');
-    btns.classList.toggle('d-flex');
-
- }
-
-
+function setBtns() {
 document.getElementById('start-button').addEventListener('click', startGame);
 
 // btns-controls
 document.getElementById('btn-controls').addEventListener('click', () => {
-    switchScreen('controls-screen');
+    toggleWithStartScreen('controls-screen');
 });
 
 document.getElementById('btn-controls-back').addEventListener('click', () => {
-    switchScreen('controls-screen');
+    toggleWithStartScreen('controls-screen');
 });
 
 // btn-legal-notice-screen
 document.getElementById('btn-legal-notice').addEventListener('click', () => {
-switchScreen('legal-notice-screen')
+toggleWithStartScreen('legal-notice-screen')
 });
 document.getElementById('btn-legal-notice-back').addEventListener('click', () => {
-switchScreen('legal-notice-screen')
+toggleWithStartScreen('legal-notice-screen')
 });
-
-
 // btn-loser screen
 document.getElementById('btn-restart-lose').addEventListener('click', () => {
-switchScreen('loser-screen')
+toggleWithStartScreen('loser-screen')
 });
 
 // btn-winner-screen
 document.getElementById('btn-restart-win').addEventListener('click', () => {
-switchScreen('winner-screen')
+toggleWithStartScreen('winner-screen')
 });
+}
+
+setBtns();
+
+
+
 
 
 window.addEventListener("keydown", (e) => {

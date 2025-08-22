@@ -1,5 +1,5 @@
 import { AudioHub } from "../js/audiohub.class.js";
-import { toggleMobileBtns } from "../js/game.js";
+import { toggleScreen } from "../js/game.js";
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Character } from "../models/character.class.js";
@@ -8,15 +8,12 @@ import { Bottle } from "./bottle.class.js";
 import { BottleBar } from "./bottlebar.class.js";
 import { Coin } from "./coin.class.js";
 import { Coinbar } from "./coinbar.class.js";
-import { Collectibles } from "./collectibles.class.js";
 import { Endboss } from "./endboss.class.js";
 import { HealthBar } from "./healthbar.class.js";
 import { HealthBarBoss } from "./healthbar_boss.class.js";
-
 import { Level } from "./level.class.js";
 import { MovableObject } from "./movable_object.class.js";
-// import { Statusbar } from "./statusbar.class.js";
-import { ThrowableObject } from "./throwable_object.class.js";
+
 
 
 
@@ -45,7 +42,7 @@ export class World {
         IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
         IntervalHub.startInterval(this.checkEndgame, 1000 / 1);
         IntervalHub.startInterval(this.spawnEndboss, 1000 / 30);
-        AudioHub.playOne(AudioHub.GAME_MUSIC);
+
     }
 
     // #region methods
@@ -62,7 +59,7 @@ export class World {
                 const endscreen = document.getElementById('loser-screen');
                 endscreen.classList.remove('d-none');
                 endscreen.classList.add('d-flex');
-                toggleMobileBtns();
+                toggleScreen('mobile-btns');
             }, 500)
         }
     }

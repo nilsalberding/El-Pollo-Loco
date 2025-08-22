@@ -11,23 +11,23 @@ class MyAudio {
 export class AudioHub {
     // Audiodateien 
 
-    static CHR_DMG = new MyAudio('../sounds/character/characterDamage.mp3');
-    static CHR_DEAD = new MyAudio('../sounds/character/characterDead.wav');
-    static CHR_JUMP = new MyAudio('../sounds/character/characterJump.wav');
-    static CHR_RUN = new MyAudio('../sounds/character/characterRun.mp3');
-    static CHR_SNORING = new MyAudio('../sounds/character/characterSnoring.mp3');
+    static CHR_DMG = new MyAudio('./sounds/character/characterDamage.mp3');
+    static CHR_DEAD = new MyAudio('./sounds/character/characterDead.wav');
+    static CHR_JUMP = new MyAudio('./sounds/character/characterJump.wav');
+    static CHR_RUN = new MyAudio('./sounds/character/characterRun.mp3');
+    static CHR_SNORING = new MyAudio('./sounds/character/characterSnoring.mp3');
 
-    static CHCKN_DEAD = new MyAudio('../sounds/chicken/chickenDead.mp3');
-    static MINICHCKN_DEAD = new MyAudio('../sounds/chicken/chickenDead2.mp3');
-    static BOSS_APPR = new MyAudio('../sounds/endboss/endbossApproach.wav');
+    static CHCKN_DEAD = new MyAudio('./sounds/chicken/chickenDead.mp3');
+    static MINICHCKN_DEAD = new MyAudio('./sounds/chicken/chickenDead2.mp3');
+    static BOSS_APPR = new MyAudio('./sounds/endboss/endbossApproach.wav');
 
-    static BOTTLE_COLLECT = new MyAudio('../sounds/collectibles/bottleCollectSound.wav');
-    static COIN_COLLECT = new MyAudio('../sounds/collectibles/collectSound.wav');
+    static BOTTLE_COLLECT = new MyAudio('./sounds/collectibles/bottleCollectSound.wav');
+    static COIN_COLLECT = new MyAudio('./sounds/collectibles/collectSound.wav');
 
-    static GAME_START = new MyAudio('../sounds/game/gameStart.mp3');
-    static GAME_MUSIC = new MyAudio('../sounds/game/game-music.mp3')
-    static BOTTLE_BREAK = new MyAudio('../sounds/throwable/bottleBreak.mp3');
-    static VICTORY = new MyAudio('../sounds/game/victory.mp3')
+    static GAME_START = new MyAudio('./sounds/game/gameStart.mp3');
+    static GAME_MUSIC = new MyAudio('./sounds/game/game-music.mp3')
+    static BOTTLE_BREAK = new MyAudio('./sounds/throwable/bottleBreak.mp3');
+    static VICTORY = new MyAudio('./sounds/game/victory.mp3')
 
 
 
