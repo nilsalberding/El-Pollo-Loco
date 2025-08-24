@@ -31,21 +31,53 @@ export class Character extends MovableObject {
 
     constructor() {
         super().loadImage(Pix.mainChar.walk[0]);
-        this.loadCharImages();
-
         this.width = this.height * 0.5083;
-        IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
-        IntervalHub.startInterval(this.moveSet, 1000 / 60);
-        IntervalHub.startInterval(this.applyGravity, 1000 / 25);
-        IntervalHub.startInterval(this.animations, 1000 / 15);
-        IntervalHub.startInterval(this.checkFalling, 1000 / 30);
-        IntervalHub.startInterval(this.setSound, 1000 / 4);
-
-        console.log(this);
-
+        this.loadCharImages();
+        this.startIntervals();
     }
 
     // #region methods
+
+    moveSet = () => {
+        if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRightChar();
+        }
+        if (Keyboard.LEFT && this.x > 0) {
+            this.moveLeftChar();
+        }
+        if (Keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+        }
+        if (Keyboard.D) {
+            this.throwBottle();
+        }
+        this.world.camera_x = -this.x + 100;
+    }
+
+    animations = () => {
+        if (this.isAboveGround() && this.isJumping) {
+            this.playJumpAnimation(Pix.mainChar.jump);
+        } else if (this.isAboveGround()) {
+            this.img = this.imageCache[Pix.mainChar.jump[6]];
+        } else if (this.isDead()) {
+            this.playAnimation(Pix.mainChar.dead);
+        } else if (this.isHurt) {
+            this.playAnimation(Pix.mainChar.hurt);
+        } else if (Keyboard.RIGHT || Keyboard.LEFT) {
+            this.playAnimation(Pix.mainChar.walk);
+        } else {
+            this.playAnimation(Pix.mainChar.idle);
+        }
+    }
+
+    setSound = () => {
+        if ((Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround()) {
+            AudioHub.playOne(AudioHub.CHR_RUN);
+        } else if (!Keyboard.RIGHT || !Keyboard.LEFT) {
+            AudioHub.stopOne(AudioHub.CHR_RUN);
+        }
+    }
+
 
     moveRightChar() {
         this.x += this.speedX;
@@ -66,7 +98,7 @@ export class Character extends MovableObject {
         AudioHub.playOne(AudioHub.CHR_JUMP);
     }
 
-    jumpOnEnemy() {
+    miniJump() {
         this.speedY = 10;
         this.isJumping = true;
         this.currentImage = 0;
@@ -95,51 +127,6 @@ export class Character extends MovableObject {
         }
     }
 
-
-    moveSet = () => {
-        if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-            this.moveRightChar();
-        }
-        if (Keyboard.LEFT && this.x > 0) {
-            this.moveLeftChar();
-        }
-        if (Keyboard.SPACE && !this.isAboveGround()) {
-            this.jump();
-        }
-        if (Keyboard.D) {
-            this.throwBottle();
-        }
-        this.world.camera_x = -this.x + 100;
-    }
-
-    animations = () => {
-
-        if (this.isAboveGround() && this.isJumping) {
-            this.playJumpAnimation(Pix.mainChar.jump);
-
-        } else if (this.isAboveGround()) {
-            this.img = this.imageCache[Pix.mainChar.jump[6]];
-
-        } else if (this.isDead()) {
-            this.playAnimation(Pix.mainChar.dead);
-        } else if (this.isHurt) {
-            this.playAnimation(Pix.mainChar.hurt);
-        } else if (Keyboard.RIGHT || Keyboard.LEFT) {
-            this.playAnimation(Pix.mainChar.walk);
-        } else {
-            this.playAnimation(Pix.mainChar.idle);
-        }
-    }
-
-    setSound = () => {
-        if ((Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround()) {
-            AudioHub.playOne(AudioHub.CHR_RUN);
-        } else if (!Keyboard.RIGHT || !Keyboard.LEFT) {
-            AudioHub.stopOne(AudioHub.CHR_RUN);
-        }
-    }
-
-
     playJumpAnimation(pixArray) {
         if (this.isJumping) {
             let i = this.currentImage % pixArray.length;
@@ -152,6 +139,14 @@ export class Character extends MovableObject {
         }
     }
 
+    startIntervals() {
+        IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
+        IntervalHub.startInterval(this.moveSet, 1000 / 60);
+        IntervalHub.startInterval(this.applyGravity, 1000 / 25);
+        IntervalHub.startInterval(this.animations, 1000 / 15);
+        IntervalHub.startInterval(this.checkFalling, 1000 / 30);
+        IntervalHub.startInterval(this.setSound, 1000 / 4);
+    }
 
     loadCharImages() {
         this.loadImages(Pix.mainChar.walk);

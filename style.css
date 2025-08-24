@@ -126,7 +126,6 @@ body {
     #legal-notice-screen {
         background-color: #ED9046;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         color: white;
         overflow: auto;

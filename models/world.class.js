@@ -42,6 +42,7 @@ export class World {
         IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
         IntervalHub.startInterval(this.checkEndgame, 1000 / 1);
         IntervalHub.startInterval(this.spawnEndboss, 1000 / 30);
+        Chicken.spawnX = 600;
 
     }
 
@@ -51,14 +52,26 @@ export class World {
         this.character.world = this;
     }
 
+    checkCollisions = () => {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && this.character.isFalling) {
+                this.jumpOnEnemy(enemy);
+            } else if (this.character.isColliding(enemy)) {
+                this.characterDamage(enemy);
+            }
+            this.bottleOnEnemy(enemy);
+        })
+        this.collectCoin();
+        this.collectBottle();
+    }
+
     checkEndgame = () => {
         if (this.character.isDead()) {
             setTimeout(() => {
+                AudioHub.stopAll();
                 AudioHub.playOne(AudioHub.CHR_DEAD);
                 IntervalHub.stopAllIntervals();
-                const endscreen = document.getElementById('loser-screen');
-                endscreen.classList.remove('d-none');
-                endscreen.classList.add('d-flex');
+                toggleScreen('loser-screen');
                 toggleScreen('mobile-btns');
             }, 500)
         }
@@ -69,78 +82,71 @@ export class World {
             this.character.firstContactBoss = true;
             this.level.enemies.push(new Endboss);
             AudioHub.playOne(AudioHub.BOSS_APPR);
-
         }
     }
 
 
-    checkCollisions = () => {
-        this.level.enemies.forEach((enemy) => {
-            // Collision Character jump on Enemy
-            if (this.character.isColliding(enemy) && this.character.isFalling) {
-                if (!enemy.isDead()) {
-                    if (!enemy.isHurt) {
-                        AudioHub.playOne(AudioHub.CHCKN_DEAD);
-                    }
-                    this.character.jumpOnEnemy();
-                    enemy.hit();
-                }
 
 
-            } else if (this.character.isColliding(enemy)) {
-                if (!enemy.isDead()) {
-                    AudioHub.playOne(AudioHub.CHR_DMG);
-                    this.character.hit();
-
-                    this.healthbar.setPercentage(this.character.health, Pix.status.health);
-                    if (this.character.otherDirection) {
-                        this.character.x += 50;
-                    } else {
-                        this.character.x -= 50;
-                    }
-
-                }
-
+    jumpOnEnemy(_enemy) {
+        if (!_enemy.isDead()) {
+            if (!_enemy.isHurt) {
+                AudioHub.playOne(AudioHub.CHCKN_DEAD);
             }
+            this.character.miniJump();
+            _enemy.hit();
+        }
+    }
 
-            // Flasche trifft Gegner
-            this.throwableObject.forEach((bottle) => {
-                if (bottle.isColliding(enemy)) {
-                    enemy.hit();
-                    bottle.isBroken = true;
-                    AudioHub.playOne(AudioHub.BOTTLE_BREAK);
-                    setTimeout(() => {
-                        const bottleIndex = this.throwableObject.indexOf(bottle);
-                        this.throwableObject.splice(bottleIndex, 1);
-                    }, 200)
-                }
-            })
+    characterDamage(_enemy) {
+        if (!_enemy.isDead()) {
+            AudioHub.playOne(AudioHub.CHR_DMG);
+            this.character.hit();
+            this.healthbar.setPercentage(this.character.health, Pix.status.health);
+            if (this.character.otherDirection) {
+                this.character.x += 50;
+            } else {
+                this.character.x -= 50;
+            }
+        }
+    }
 
-            // Coins einsammeln
-            this.level.collectibles.coins.forEach((coin) => {
-                if (this.character.isColliding(coin)) {
-                    AudioHub.playOne(AudioHub.COIN_COLLECT);
-                    Coin.coinPercentage += 20;
-                    const coinIndex = this.level.collectibles.coins.indexOf(coin);
-                    this.level.collectibles.coins.splice(coinIndex, 1);
-                    this.coinbar.setPercentage(Coin.coinPercentage, Pix.status.coin);
-                }
-            })
-
-            //  Flaschen einsammeln
-            this.level.collectibles.bottles.forEach((bottle) => {
-                if (this.character.isColliding(bottle)) {
-                    AudioHub.playOne(AudioHub.BOTTLE_COLLECT);
-                    Bottle.bottlePercentage += 20;
-                    const bottleIndex = this.level.collectibles.bottles.indexOf(bottle);
-                    this.level.collectibles.bottles.splice(bottleIndex, 1);
-                    this.bottlebar.setPercentage(Bottle.bottlePercentage, Pix.status.bottle);
-                }
-            })
+    bottleOnEnemy(_enemy) {
+        this.throwableObject.forEach((bottle) => {
+            if (bottle.isColliding(_enemy) && !_enemy.isDead()) {
+                _enemy.hit();
+                bottle.isBroken = true;
+                AudioHub.playOne(AudioHub.BOTTLE_BREAK);
+                setTimeout(() => {
+                    const bottleIndex = this.throwableObject.indexOf(bottle);
+                    this.throwableObject.splice(bottleIndex, 1);
+                }, 200)
+            }
         })
+    }
 
+    collectCoin() {
+        this.level.collectibles.coins.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                AudioHub.playOne(AudioHub.COIN_COLLECT);
+                Coin.coinPercentage += 20;
+                const coinIndex = this.level.collectibles.coins.indexOf(coin);
+                this.level.collectibles.coins.splice(coinIndex, 1);
+                this.coinbar.setPercentage(Coin.coinPercentage, Pix.status.coin);
+            }
+        })
+    }
 
-
+    collectBottle() {
+        this.level.collectibles.bottles.forEach((bottle) => {
+            if (this.character.isColliding(bottle)) {
+                AudioHub.playOne(AudioHub.BOTTLE_COLLECT);
+                Bottle.bottlePercentage += 20;
+                const bottleIndex = this.level.collectibles.bottles.indexOf(bottle);
+                this.level.collectibles.bottles.splice(bottleIndex, 1);
+                this.bottlebar.setPercentage(Bottle.bottlePercentage, Pix.status.bottle);
+            }
+        })
     }
 
 

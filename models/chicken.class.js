@@ -5,7 +5,7 @@ import { MovableObject } from "./movable_object.class.js";
 export class Chicken extends MovableObject {
 
     // #region attributes
-    static spawnX = 400;
+    static spawnX = 600;
     health = 20;
     y = 360;
     height = 60;

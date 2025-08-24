@@ -80,12 +80,6 @@ export class MovableObject extends DrawableObject {
             this.rY < mO.rY + this.rH;
     }
 
-    // playDeadSound = () => {
-    //     if (this.isDead() && !this.deadSoundPlayed) {
-    //         AudioHub.playOne(AudioHub.CHCKN_DEAD);
-    //         this.deadSoundPlayed = true;
-    //     }
-    // }
 
     // #endregion
 } 

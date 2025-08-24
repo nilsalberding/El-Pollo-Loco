@@ -36,19 +36,29 @@ export class ThrowableObject extends MovableObject {
     throw(x, y) {
         this.x = x;
         this.y = y;
-        IntervalHub.startInterval(this.throwRange, 1000 / 30);
+        if (Character.LOOKLEFT) {
+            IntervalHub.startInterval(this.throwLeft, 1000 / 30);
+        } else {
+            IntervalHub.startInterval(this.throwRight, 1000 / 30);
+        }
     }
 
-    throwRange = () => { // BUG : flasche ändert ihre Richtung während des Flugs, wenn pepe sich dreht
+    throwLeft = () => {
         if (!this.isBroken) {
+            this.x -= this.speedX;
             this.y -= this.speedY;
             this.speedY -= this.acceleration;
-            if (Character.LOOKLEFT) {
-                this.x -= this.speedX;
-            } else {
-                this.x += this.speedX;
-            }
         }
+
+    }
+
+    throwRight = () => {
+        if (!this.isBroken) {
+            this.x += this.speedX;
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+        }
+
     }
 
     animations = () => {

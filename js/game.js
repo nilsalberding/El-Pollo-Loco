@@ -1,4 +1,5 @@
 
+import { Chicken } from "../models/chicken.class.js";
 import { Keyboard } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
 import { AudioHub } from "./audiohub.class.js";
@@ -14,10 +15,10 @@ function init() {
     
 };
 
-function restart() {
-    IntervalHub.stopAllIntervals();
-    init();
-}
+// function setNewGame() {
+//     Chicken.spawnX = 600;
+
+// }
 
 export function toggleScreen(screenID) {
     const screen = document.getElementById(screenID);
@@ -123,9 +124,4 @@ window.addEventListener("keyup", (e) => {
 
 
 // TODO : Fullscreen einstellen
-// TODO : Steuerung anzeigen + Mobile-Steuerung einrichten
 
-// TODO : animation nur einmal durchlaufen lassen bei bestimmten funktionen
-
- 
-// TODO : Spiel responsive machen

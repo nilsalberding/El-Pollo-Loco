@@ -39,8 +39,6 @@ export class AudioHub {
 
     // Spielt eine einzelne Audiodatei ab
     static playOne(sound) {
-        console.log(sound.sound.readyState);
-        
         if (sound.sound.readyState == 4 || sound.loaded) {
             sound.sound.loaded = true;
             sound.sound.volume = 0.2;
