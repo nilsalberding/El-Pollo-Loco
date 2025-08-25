@@ -4,6 +4,7 @@ class MyAudio {
 
     constructor(_sound) {
         this.sound = new Audio(_sound);
+        this.sound.volume = 0.2;
     }
 }
 
@@ -41,7 +42,7 @@ export class AudioHub {
     static playOne(sound) {
         if (sound.sound.readyState == 4 || sound.loaded) {
             sound.sound.loaded = true;
-            sound.sound.volume = 0.2;
+            // sound.sound.volume = 0.2;
             sound.sound.currentTime = 0; 
             sound.sound.play();  
         }

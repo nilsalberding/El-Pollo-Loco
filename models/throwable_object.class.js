@@ -25,7 +25,9 @@ export class ThrowableObject extends MovableObject {
         this.loadImages(Pix.bottle.rotation);
         this.loadImages(Pix.bottle.splash);
         this.width = this.height;
-        this.throw(x, y);
+        this.x = x;
+        this.y = y;
+        this.throw();
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.animations, 1000 / 30);
 
@@ -33,9 +35,7 @@ export class ThrowableObject extends MovableObject {
 
     // #region methods
 
-    throw(x, y) {
-        this.x = x;
-        this.y = y;
+    throw() {
         if (Character.LOOKLEFT) {
             IntervalHub.startInterval(this.throwLeft, 1000 / 60);
         } else {

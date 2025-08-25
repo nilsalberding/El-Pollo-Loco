@@ -190,13 +190,53 @@ body {
             background-image: url('./img/icons/mobile-bottle.png');
         }
     }
+
     #loading-screen {
         background-color: #ED9046;
         align-items: center;
         justify-content: center;
+
         h1 {
             color: white;
         }
+    }
+
+    #turn-phone-screen {
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+
+        @media (max-width: 500px) {
+            display: flex;
+        }
+    }
+
+    #btn-sound-mute {
+        height: 35px;
+        width: 35px;
+        background-image: url(./img/icons/sound_on.png);
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        z-index: 1;
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #btn-sound-on {
+        height: 35px;
+        width: 35px;
+        background-image: url(./img/icons/sound_off.png);
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        z-index: 1;
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
