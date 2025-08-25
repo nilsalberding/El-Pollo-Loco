@@ -42,7 +42,6 @@ export class AudioHub {
     static playOne(sound) {
         if (sound.sound.readyState == 4 || sound.loaded) {
             sound.sound.loaded = true;
-            // sound.sound.volume = 0.2;
             sound.sound.currentTime = 0; 
             sound.sound.play();  
         }

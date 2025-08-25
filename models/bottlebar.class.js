@@ -1,6 +1,10 @@
 import { Pix } from "../js/pix.class.js";
 import { Statusbar } from "./statusbar.class.js"
 
+/**
+ * Creates a new Statusbar which shows the status of bottle-inventory
+ * @class
+ */
 export class BottleBar extends Statusbar {
     percentage = 0;
     y = 40;

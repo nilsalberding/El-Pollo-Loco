@@ -1,0 +1,19 @@
+{
+    "source":{
+        "include": [
+            "./models/background_objects.class.js",
+            "./models/bottle.class.js",
+            "./models/bottlebar.class.js",
+            "./models/character.class.js",
+            "./models/chicken.class.js",
+            "./models/cloud.class.js",
+            "./models/coin.class.js",
+            "./models/coinbar.class.js",
+            "./models/drawable_object.class.js",
+            "./models/endboss.class.js"
+        ]
+    },
+    "opts": {
+        "destination": "./out"
+    }
+}

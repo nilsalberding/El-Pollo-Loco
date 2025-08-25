@@ -2,20 +2,50 @@ export class Keyboard {
 
     // #region attributes
 
+    /**
+    * flag, if button is pressed down
+    * @type {boolean}
+    */
     static UP = false;
+    /**
+    * flag, if button is pressed down
+    * @type {boolean}
+    */
     static DOWN = false;
+    /**
+    * flag, if button is pressed down
+    * @type {boolean}
+    */
     static LEFT = false;
+    /**
+    * flag, if button is pressed down
+    * @type {boolean}
+    */
     static RIGHT = false;
+    /**
+    * flag, if button is pressed down
+    * @type {boolean}
+    */
     static SPACE = false;
+    /**
+    * flag, if button is pressed down
+    * @type {boolean}
+    */
     static D = false;
-
     // #endregion
 
+    /**
+     * constructor set constrols 
+     */
     constructor() {
         this.setControls();
         this.setMobileControls();
     }
 
+    /**
+     * set controls for Keyboard
+     * @method
+     */
     setControls() {
         window.addEventListener("keydown", (e) => {
             if (e.key == ' ') {
@@ -60,6 +90,10 @@ export class Keyboard {
         })
     }
 
+    /**
+     * set controls for mobile devices
+     * @method
+     */
     setMobileControls() {
         document.getElementById('btn-left').addEventListener('touchstart', () => {
             Keyboard.LEFT = true;

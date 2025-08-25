@@ -6,29 +6,68 @@ import { Keyboard } from "./keyboard.class.js";
 import { MovableObject } from "./movable_object.class.js";
 import { ThrowableObject } from "./throwable_object.class.js";
 
-
+/**
+ * Creates the main-character of the game
+ * @class
+ */
 export class Character extends MovableObject {
 
     // #region attributes
+
+    /**
+     * 
+     */
     world;
+
+    /**
+     * Flag, which shows if the bottle can be throw by Character
+     * @type {boolean} 
+     */
     bottleReady = true;
+
+    /**
+     * Flag, which shows if character is falling
+     * @type {boolean} 
+     */
     isFalling = false;
     x = 80;
     y = 220;
     height = 200;
+
     speedX = 7;
     health = 100;
+
+    /**
+    * Collision offset values to adjust hitbox.
+    * @type {{top:number,left:number,right:number,bottom:number}}
+    */
     offset = {
         top: 100,
         right: 30,
         left: 20,
         bottom: 10
     }
+    /**
+     * Flag, which shows if character is falling
+     * @type {boolean}
+     */
     isJumping = false;
+    /**
+     * Flag, which shows if Character had Contact with Boss
+     * @type {boolean}
+     */
     firstContactBoss = false;
+    /**
+     * Flag, which shows if character looks left or right
+     * @type {boolean}
+     * @static
+     */
     static LOOKLEFT = false;
     // #endregion
 
+    /**
+     * constructor load images, start the intervals and set width of the character image
+     */
     constructor() {
         super().loadImage(Pix.mainChar.walk[0]);
         this.width = this.height * 0.5083;
@@ -38,6 +77,10 @@ export class Character extends MovableObject {
 
     // #region methods
 
+    /**
+     * Set the moveset of the character
+     * @method
+     */
     moveSet = () => {
         if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRightChar();
@@ -54,6 +97,10 @@ export class Character extends MovableObject {
         this.world.camera_x = -this.x + 100;
     }
 
+    /**
+     * Set the animations of the character
+     * @method
+     */
     animations = () => {
         if (this.isAboveGround() && this.isJumping) {
             this.playJumpAnimation(Pix.mainChar.jump);
@@ -70,6 +117,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * set sounds of the character if he´s running
+     * @method
+     */
     setSound = () => {
         if ((Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround()) {
             AudioHub.playOne(AudioHub.CHR_RUN);
@@ -78,19 +129,30 @@ export class Character extends MovableObject {
         }
     }
 
-
+/**
+ * Let the character move right
+ * @method
+ */
     moveRightChar() {
         this.x += this.speedX;
         this.otherDirection = false;
         Character.LOOKLEFT = false;
     }
 
+    /**
+     * Let the character move left
+     * @method
+     */
     moveLeftChar() {
         this.x -= this.speedX;
         this.otherDirection = true;
         Character.LOOKLEFT = true;
     }
 
+    /**
+     * let the character jump
+     * @method
+     */
     jump() {
         this.speedY = 17;
         this.isJumping = true;
@@ -98,6 +160,10 @@ export class Character extends MovableObject {
         AudioHub.playOne(AudioHub.CHR_JUMP);
     }
 
+    /**
+     * minijump, if the character is jumping on an enemy
+     * @method
+     */
     miniJump() {
         this.speedY = 10;
         this.isJumping = true;
@@ -105,8 +171,11 @@ export class Character extends MovableObject {
         AudioHub.playOne(AudioHub.CHR_JUMP);
     }
 
+    /**
+     * checks, if the Character is falling down
+     * @method
+     */
     checkFalling = () => {
-
         if (!this.isAboveGround()) {
             this.isFalling = false;
         } else if (this.speedY < 0) {
@@ -114,6 +183,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * let the character throw a bottle
+     * @method
+     */
     throwBottle() {
         if (this.bottleReady && Bottle.bottlePercentage > 0) {
             const bottle = new ThrowableObject(this.x, this.y);
@@ -127,6 +200,11 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * Set the jump-animation of the character
+     * @method
+     * @param {string} pixArray - Array with Images of the Animation
+     */
     playJumpAnimation(pixArray) {
         if (this.isJumping) {
             let i = this.currentImage % pixArray.length;
@@ -139,6 +217,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * start the interval-methods of the character
+     * @method
+     */
     startIntervals() {
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.moveSet, 1000 / 60);
@@ -148,6 +230,10 @@ export class Character extends MovableObject {
         IntervalHub.startInterval(this.setSound, 1000 / 4);
     }
 
+    /**
+     * load the images of the character
+     * @method
+     */
     loadCharImages() {
         this.loadImages(Pix.mainChar.walk);
         this.loadImages(Pix.mainChar.jump);

@@ -139,7 +139,7 @@ export class World {
 
     collectBottle() {
         this.level.collectibles.bottles.forEach((bottle) => {
-            if (this.character.isColliding(bottle) && Bottle.full()) {
+            if (this.character.isColliding(bottle) && Bottle.canBeStored()) {
                 AudioHub.playOne(AudioHub.BOTTLE_COLLECT);
                 Bottle.bottlePercentage += 20;
                 const bottleIndex = this.level.collectibles.bottles.indexOf(bottle);
