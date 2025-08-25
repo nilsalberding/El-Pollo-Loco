@@ -9,22 +9,16 @@ let canvas;
 let world;
 
 function init() {
-    
-    canvas = document.getElementById('canvas');    
+
+    canvas = document.getElementById('canvas');
     world = new World(canvas);
-    
+
 };
-
-// function setNewGame() {
-//     Chicken.spawnX = 600;
-
-// }
 
 export function toggleScreen(screenID) {
     const screen = document.getElementById(screenID);
-
     screen.classList.toggle('d-none');
-    screen.classList.toggle('d-flex'); 
+    screen.classList.toggle('d-flex');
 }
 
 function toggleWithStartScreen(screenID) {
@@ -34,44 +28,43 @@ function toggleWithStartScreen(screenID) {
 
 function startGame() {
     AudioHub.playOne(AudioHub.GAME_START);
-
-    toggleWithStartScreen('loading-screen');    
+    toggleWithStartScreen('loading-screen');
     init();
     setTimeout(() => {
-        toggleScreen('loading-screen');    
+        toggleScreen('loading-screen');
         toggleScreen('mobile-btns');
         AudioHub.playOne(AudioHub.GAME_MUSIC);
     }, 1000 * 3);
 }
 
 function setBtns() {
-document.getElementById('start-button').addEventListener('click', startGame);
+    document.getElementById('start-button').addEventListener('click', startGame);
 
-// btns-controls
-document.getElementById('btn-controls').addEventListener('click', () => {
-    toggleWithStartScreen('controls-screen');
-});
+    // btns-controls
+    document.getElementById('btn-controls').addEventListener('click', () => {
+        toggleWithStartScreen('controls-screen');
+    });
 
-document.getElementById('btn-controls-back').addEventListener('click', () => {
-    toggleWithStartScreen('controls-screen');
-});
+    document.getElementById('btn-controls-back').addEventListener('click', () => {
+        toggleWithStartScreen('controls-screen');
+    });
 
-// btn-legal-notice-screen
-document.getElementById('btn-legal-notice').addEventListener('click', () => {
-toggleWithStartScreen('legal-notice-screen')
-});
-document.getElementById('btn-legal-notice-back').addEventListener('click', () => {
-toggleWithStartScreen('legal-notice-screen')
-});
-// btn-loser screen
-document.getElementById('btn-restart-lose').addEventListener('click', () => {
-toggleWithStartScreen('loser-screen')
-});
+    // btn-legal-notice-screen
+    document.getElementById('btn-legal-notice').addEventListener('click', () => {
+        toggleWithStartScreen('legal-notice-screen')
+    });
+    document.getElementById('btn-legal-notice-back').addEventListener('click', () => {
+        toggleWithStartScreen('legal-notice-screen')
+    });
+    // btn-loser screen
+    document.getElementById('btn-restart-lose').addEventListener('click', () => {
+        toggleWithStartScreen('loser-screen')
+    });
 
-// btn-winner-screen
-document.getElementById('btn-restart-win').addEventListener('click', () => {
-toggleWithStartScreen('winner-screen')
-});
+    // btn-winner-screen
+    document.getElementById('btn-restart-win').addEventListener('click', () => {
+        toggleWithStartScreen('winner-screen')
+    });
 }
 
 setBtns();
@@ -120,7 +113,7 @@ window.addEventListener("keyup", (e) => {
     if (e.key == 'd') {
         Keyboard.D = false;
     }
-}) 
+})
 
 
 // TODO : Fullscreen einstellen

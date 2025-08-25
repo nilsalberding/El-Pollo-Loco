@@ -29,28 +29,18 @@ export class Endboss extends MovableObject {
 
     constructor() {
         super().loadImage(Pix.boss.alert[0]);
-        this.loadImages(Pix.boss.alert);
-        this.loadImages(Pix.boss.dead);
-        this.loadImages(Pix.boss.attack);
-        this.loadImages(Pix.boss.hurt);
-        this.loadImages(Pix.boss.walk);
+        this.loadBossImages();
+        this.startBossIntervals();
         this.width = this.height * 0.86;
-        IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
-        IntervalHub.startInterval(this.attack, 1000 / 0.5);
-        IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
-        IntervalHub.startInterval(this.animate, 1000 / 5);
-        IntervalHub.startInterval(this.applyGravity, 100 / 3);
-        IntervalHub.startInterval(this.checkDead, 1000 / 1);
+
     }
 
     // #region methods
 
     animate = () => {
-
         if (this.currentImage < Pix.boss.alert.length) {
             this.playAnimation(Pix.boss.alert)
-        }
-        else if (this.isDead()) {
+        } else if (this.isDead()) {
             this.playAnimation(Pix.boss.dead);
         } else if (this.isHurt) {
             this.playAnimation(Pix.boss.hurt);
@@ -89,7 +79,8 @@ export class Endboss extends MovableObject {
             this.playBossDeadSound();
             setTimeout(() => {
 
-                this.showWinnerScreen();
+                // this.showWinnerScreen();
+                toggleScreen('winner-screen')
                 IntervalHub.stopAllIntervals();
                 AudioHub.stopAll();
                 AudioHub.playOne(AudioHub.VICTORY);
@@ -108,6 +99,25 @@ export class Endboss extends MovableObject {
         AudioHub.playOne(AudioHub.CHCKN_DEAD)
         this.deadSoundPlayed = true;
     }
+
+    loadBossImages() {
+        this.loadImages(Pix.boss.alert);
+        this.loadImages(Pix.boss.dead);
+        this.loadImages(Pix.boss.attack);
+        this.loadImages(Pix.boss.hurt);
+        this.loadImages(Pix.boss.walk);
+    }
+
+    startBossIntervals() {
+        IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
+        IntervalHub.startInterval(this.attack, 1000 / 0.5);
+        IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
+        IntervalHub.startInterval(this.animate, 1000 / 5);
+        IntervalHub.startInterval(this.applyGravity, 100 / 3);
+        IntervalHub.startInterval(this.checkDead, 1000 / 1);
+    }
+
+
 
     // #endregion
 }

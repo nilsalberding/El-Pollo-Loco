@@ -21,4 +21,8 @@ export class Bottle extends Collectibles {
         this.x = pX;
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
     }
+
+    static full() {
+        return Bottle.bottlePercentage < 100;
+    }
 }

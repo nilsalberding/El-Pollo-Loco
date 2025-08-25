@@ -142,7 +142,7 @@ export class Character extends MovableObject {
     startIntervals() {
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.moveSet, 1000 / 60);
-        IntervalHub.startInterval(this.applyGravity, 1000 / 25);
+        IntervalHub.startInterval(this.applyGravity, 1000 / 60);
         IntervalHub.startInterval(this.animations, 1000 / 15);
         IntervalHub.startInterval(this.checkFalling, 1000 / 30);
         IntervalHub.startInterval(this.setSound, 1000 / 4);

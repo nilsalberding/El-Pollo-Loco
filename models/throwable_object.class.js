@@ -37,9 +37,9 @@ export class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         if (Character.LOOKLEFT) {
-            IntervalHub.startInterval(this.throwLeft, 1000 / 30);
+            IntervalHub.startInterval(this.throwLeft, 1000 / 60);
         } else {
-            IntervalHub.startInterval(this.throwRight, 1000 / 30);
+            IntervalHub.startInterval(this.throwRight, 1000 / 60);
         }
     }
 
