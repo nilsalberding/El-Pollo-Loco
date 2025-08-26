@@ -56,6 +56,26 @@ function startGame() {
 }
 
 /**
+ *  * Starts the game:
+ * - Plays the start sound.
+ * - Toggles the loading screen.
+ * - Initializes the game world.
+ * - After 3 seconds, switches to the mobile controls screen and starts background music.
+ * @param {string} endscreen - loser- or winner-screen
+ */
+function restartGame(endscreen) {
+    AudioHub.playOne(AudioHub.GAME_START);
+    init();
+    toggleScreen(endscreen);
+    toggleScreen('loading-screen');
+    setTimeout(() => {
+        toggleScreen('loading-screen');
+        toggleScreen('mobile-btns');
+        AudioHub.playOne(AudioHub.GAME_MUSIC);
+    }, 1000 * 3);
+}
+
+/**
  * Sets event listeners for all UI buttons, including:
  * - Start button
  * - Controls screen (open/close)
@@ -83,13 +103,20 @@ function setBtns() {
     });
 
     // Loser screen
-    document.getElementById('btn-restart-lose').addEventListener('click', () => {
+    document.getElementById('btn-menu-lose').addEventListener('click', () => {
         toggleWithStartScreen('loser-screen')
     });
+    document.getElementById('btn-restart-lose').addEventListener('click', () => {
+        restartGame('loser-screen')
+    });
+    
 
     // Winner screen
-    document.getElementById('btn-restart-win').addEventListener('click', () => {
+    document.getElementById('btn-menu-win').addEventListener('click', () => {
         toggleWithStartScreen('winner-screen')
+    });
+    document.getElementById('btn-restart-win').addEventListener('click', () => {
+        restartGame('winner-screen')
     });
 }
 
