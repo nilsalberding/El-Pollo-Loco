@@ -1,6 +1,5 @@
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
-import { Collectibles } from "./collectibles.class.js";
 import { MovableObject } from "./movable_object.class.js";
 
 /**

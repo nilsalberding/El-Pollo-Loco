@@ -26,6 +26,7 @@ export class Character extends MovableObject {
      * @type {boolean} 
      */
     isFalling = false;
+    lastMove = new Date().getTime();
     x = 80;
     y = 220;
     height = 200;
@@ -48,6 +49,11 @@ export class Character extends MovableObject {
      * @type {boolean}
      */
     isJumping = false;
+    /**
+     * Flag, if character is snoring
+     * @type {boolean}
+     */
+    isSnoring = false;
     /**
      * Flag, which shows if Character had Contact with Boss
      * @type {boolean}
@@ -108,6 +114,8 @@ export class Character extends MovableObject {
             this.playAnimation(Pix.mainChar.hurt);
         } else if (Keyboard.RIGHT || Keyboard.LEFT) {
             this.playAnimation(Pix.mainChar.walk);
+        } else if (this.isSleeping()) {
+            this.playAnimation(Pix.mainChar.longIdle);
         } else {
             this.playAnimation(Pix.mainChar.idle);
         }
@@ -118,21 +126,23 @@ export class Character extends MovableObject {
      * @method
      */
     setSound = () => {
-        if ((Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround()) {
+        if (this.isSleeping()){
+            this.snoring();
+        }else if ((Keyboard.RIGHT || Keyboard.LEFT) && !this.isAboveGround()) {
             AudioHub.playOne(AudioHub.CHR_RUN);
         } else if (!Keyboard.RIGHT || !Keyboard.LEFT) {
             AudioHub.stopOne(AudioHub.CHR_RUN);
-        }
-    }
+        }}
 
-/**
- * Let the character move right
- * @method
- */
+    /**
+     * Let the character move right
+     * @method
+     */
     moveRightChar() {
         this.x += this.speedX;
         this.otherDirection = false;
         Character.LOOKLEFT = false;
+        this.lastMove = new Date().getTime();
     }
 
     /**
@@ -143,6 +153,7 @@ export class Character extends MovableObject {
         this.x -= this.speedX;
         this.otherDirection = true;
         Character.LOOKLEFT = true;
+        this.lastMove = new Date().getTime();
     }
 
     /**
@@ -153,6 +164,7 @@ export class Character extends MovableObject {
         this.speedY = 17;
         this.isJumping = true;
         this.currentImage = 0;
+        this.lastMove = new Date().getTime();
         AudioHub.playOne(AudioHub.CHR_JUMP);
     }
 
@@ -164,7 +176,6 @@ export class Character extends MovableObject {
         this.speedY = 10;
         this.isJumping = true;
         this.currentImage = 0;
-        AudioHub.playOne(AudioHub.CHR_JUMP);
     }
 
     /**
@@ -178,6 +189,18 @@ export class Character extends MovableObject {
             this.isFalling = true;
         }
     }
+
+    snoring() {
+        if (!this.isSnoring) {
+            this.isSnoring = true;
+            AudioHub.playOne(AudioHub.CHR_SNORING);
+            setTimeout(() => {
+                this.isSnoring = false;
+            },1000 * 3)
+        }
+        
+    }
+
 
     /**
      * let the character throw a bottle
@@ -212,9 +235,15 @@ export class Character extends MovableObject {
             }
         }
     }
-    
+
     isWalking() {
         return Keyboard.LEFT || Keyboard.RIGHT;
+    }
+
+    isSleeping() {
+        let timePassed = new Date().getTime() - this.lastMove;
+        timePassed = timePassed / 1000;
+        return timePassed > 5;
     }
 
     /**
@@ -240,6 +269,7 @@ export class Character extends MovableObject {
         this.loadImages(Pix.mainChar.dead);
         this.loadImages(Pix.mainChar.hurt);
         this.loadImages(Pix.mainChar.idle);
+        this.loadImages(Pix.mainChar.longIdle);
     }
     // #endregion
 }
