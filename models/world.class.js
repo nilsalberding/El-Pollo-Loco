@@ -14,26 +14,66 @@ import { HealthBarBoss } from "./healthbar_boss.class.js";
 import { Level } from "./level.class.js";
 import { MovableObject } from "./movable_object.class.js";
 
-
-
-
+/**
+ * creates the world of the game. 
+ * @class
+ */
 export class World {
-
     // #region attributes
-
+    /**
+     * character of the World
+     * @type {object}
+     */
     character = new Character();
+    /**
+     * healthbar of character
+     * @type {object}
+     */
     healthbar = new HealthBar();
+    /**
+     * bottle-inventory of the character
+     * @type {object}
+     */
     bottlebar = new BottleBar();
+    /**
+     * healthbar of the Boss
+     * @type {object}
+     */
     healthbarBoss = new HealthBarBoss();
+    /**
+     * shows percentage of the collected coins
+     * @type {object}
+     */
     coinbar = new Coinbar();
+    /**
+     * contains the thrown bottles of the character
+     * @type {Array|Array<object>}
+     */
     throwableObject = [];
+    /**
+     * creates the level of the world
+     * @type {object}
+     */
     level = new Level();
+    /**
+     * canvas, where everything is drawing in
+     */
     canvas;
+    /**
+     * context of the canvas
+     */
     ctx;
+    /**
+     * x-coordinate of the shown context
+     * @type {number}
+     */
     camera_x = 0;
-
     // #endregion
-
+    /**
+     * Creates a new instance of the game world and initializes
+     * the canvas, rendering context, and main game intervals.
+     * @param {HTMLCanvasElement} canvas - The canvas element where the game world is rendered.
+     */
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -43,15 +83,22 @@ export class World {
         IntervalHub.startInterval(this.checkEndgame, 1000 / 1);
         IntervalHub.startInterval(this.spawnEndboss, 1000 / 30);
         Chicken.spawnX = 600;
-
     }
 
     // #region methods
-
+    /**
+     * Set the reference at character-class from this world
+     * @method
+     */
     setWorld() {
         this.character.world = this;
     }
-
+    /**
+     * Checks collisions between the character, enemies, and collectible objects.
+     * - Handles jumping on enemies, taking damage, and hitting enemies with bottles.
+     * - Collects coins and bottles when colliding with them.
+     * @method
+     */
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.isFalling) {
@@ -64,7 +111,13 @@ export class World {
         this.collectCoin();
         this.collectBottle();
     }
-
+    /**
+     * Checks if the character is dead and triggers the endgame sequence if true.
+     * - Stops all intervals and sounds.
+     * - Plays the death sound.
+     * - Switches to the loser screen after a short delay.
+     * @method
+     */
     checkEndgame = () => {
         if (this.character.isDead()) {
             setTimeout(() => {
@@ -77,6 +130,11 @@ export class World {
         }
     }
 
+    /**
+     * Spawns the end boss if the character reaches a certain position
+     * and has not yet triggered the first boss encounter.
+     * @method
+     */
     spawnEndboss = () => {
         if (this.character.x > 2500 && !this.character.firstContactBoss) {
             this.character.firstContactBoss = true;
@@ -85,9 +143,14 @@ export class World {
         }
     }
 
-
-
-
+    /**
+     * Handles the logic when the character jumps on an enemy.
+     * - Plays sound effects.
+     * - Damages the enemy.
+     * - Makes the character perform a mini-jump.
+     * @param {Object} _enemy - The enemy being jumped on.
+     * @method
+     */
     jumpOnEnemy(_enemy) {
         if (!_enemy.isDead()) {
             if (!_enemy.isHurt) {
@@ -98,6 +161,14 @@ export class World {
         }
     }
 
+    /**
+     * Handles the logic when the character takes damage from an enemy.
+     * - Plays sound effects.
+     * - Reduces character health and updates health bar.
+     * - Pushes the character backwards depending on the direction faced.
+     * @param {Object} _enemy - The enemy causing the damage.
+     * @method
+     */
     characterDamage(_enemy) {
         if (!_enemy.isDead()) {
             AudioHub.playOne(AudioHub.CHR_DMG);
@@ -111,6 +182,14 @@ export class World {
         }
     }
 
+    /**
+     * Handles bottle collisions with enemies.
+     * - Damages the enemy when hit.
+     * - Marks the bottle as broken.
+     * - Removes the bottle after a short delay.
+     * @param {Object} _enemy - The enemy being hit by a bottle.
+     * @method
+     */
     bottleOnEnemy(_enemy) {
         this.throwableObject.forEach((bottle) => {
             if (bottle.isColliding(_enemy) && !_enemy.isDead()) {
@@ -125,6 +204,13 @@ export class World {
         })
     }
 
+    /**
+     * Collects coins when the character collides with them.
+     * - Plays sound effects.
+     * - Increases coin percentage.
+     * - Updates the coin bar and removes the collected coin.
+     * @method
+     */
     collectCoin() {
         this.level.collectibles.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
@@ -137,6 +223,13 @@ export class World {
         })
     }
 
+    /**
+     * Collects bottles when the character collides with them.
+     * - Plays sound effects.
+     * - Increases bottle percentage.
+     * - Updates the bottle bar and removes the collected bottle.
+     * @method
+     */
     collectBottle() {
         this.level.collectibles.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle) && Bottle.canBeStored()) {
@@ -149,26 +242,30 @@ export class World {
         })
     }
 
-
+    /**
+     * Main render loop for the game world.
+     * - Clears the canvas.
+     * - Draws movable and fixed objects.
+     * - Translates the camera view.
+     * - Uses requestAnimationFrame for continuous rendering.
+     * @method
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
-
         this.addMovableObjects();
-
         this.ctx.translate(-this.camera_x, 0);
-
-        // #region for fixed Objects
         this.addFixedObjects();
-        // #endregion
-
-        // Koordinatensystem
+        // coordinate-system
         // this.setCoordinateSystem();
-
         requestAnimationFrame(() => this.draw());
     }
 
+    /**
+     * Adds all movable objects to the map.
+     * @method
+     */
     addMovableObjects() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.throwableObject);
@@ -179,26 +276,39 @@ export class World {
         this.addObjectsToMap(this.level.collectibles.bottles);
     }
 
+    /**
+     * Adds all fixed objects (UI elements such as health bar, coin bar, etc.) to the map.
+     * @method
+     */
     addFixedObjects() {
         this.addToMap(this.healthbar);
         this.addToMap(this.bottlebar);
         this.addToMap(this.coinbar);
-        this.addToMap(this.healthbarBoss);
+        if (this.character.firstContactBoss) {
+            this.addToMap(this.healthbarBoss);
+        }
     }
 
+    /**
+     * Draws an object on the canvas, flipping it horizontally if necessary.
+     * @param {Object} mO - The object to draw on the canvas.
+     * @method
+     */
     addToMap(mO) {
         if (mO.otherDirection) {
             this.flipImage(mO);
         }
-
-        // this.showRectangle(mO);
-
         this.ctx.drawImage(mO.img, mO.x, mO.y, mO.width, mO.height)
         if (mO.otherDirection) {
             this.flipImageBack(mO);
         }
     };
 
+    /**
+     * Draws a rectangle around a movable object for setting the hitbox.
+     * @param {MovableObject} mO - The movable object to highlight.
+     * @method
+     */
     showRectangle(mO) {
         if (mO instanceof MovableObject) {
             this.ctx.beginPath();
@@ -209,12 +319,23 @@ export class World {
         }
     }
 
+    
+    /**
+     * Adds multiple objects to the map by iterating through the given array.
+     * @param {Object[]} object - Array of objects to be drawn.
+     * @method
+     */
     addObjectsToMap(object) {
         object.forEach(o => {
             this.addToMap(o);
         })
     };
 
+    /**
+     * Flips an object's image horizontally for rendering.
+     * @param {Object} mO - The object to flip.
+     * @method
+     */
     flipImage(mO) {
         this.ctx.save();
         this.ctx.translate(mO.width, 0);
@@ -222,41 +343,15 @@ export class World {
         mO.x = mO.x * -1;
     }
 
+    /**
+     * Restores an object's position after being flipped horizontally.
+     * @param {Object} mO - The object to restore.
+     * @method
+     */
     flipImageBack(mO) {
-
         mO.x = mO.x * -1;
         this.ctx.restore();
     }
-
-    setCoordinateSystem() {
-        const gridColor = '#ffffffff';
-        const gridWidth = 0.5;
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-
-        // Funktion zum Zeichnen des Rasters
-
-        // Setze die Linienstärke und -farbe
-        this.ctx.lineWidth = gridWidth;
-        this.ctx.strokeStyle = gridColor;
-
-        // Zeichne vertikale Linien
-        for (let x = 0; x <= canvasWidth; x += 20) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(x, 0);
-            this.ctx.lineTo(x, canvasHeight);
-            this.ctx.stroke();
-        }
-
-        // Zeichne horizontale Linien
-        for (let y = 0; y <= canvasHeight; y += 20) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(0, y);
-            this.ctx.lineTo(canvasWidth, y);
-            this.ctx.stroke();
-        }
-    }
-
     // #endregion
 }
 

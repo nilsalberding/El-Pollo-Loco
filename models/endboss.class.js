@@ -167,7 +167,7 @@ export class Endboss extends MovableObject {
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.attack, 1000 / 0.5);
         IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
-        IntervalHub.startInterval(this.animate, 1000 / 5);
+        IntervalHub.startInterval(this.animate, 1000 / 10);
         IntervalHub.startInterval(this.applyGravity, 100 / 3);
         IntervalHub.startInterval(this.checkDead, 1000 / 1);
     }

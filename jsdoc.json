@@ -10,7 +10,20 @@
             "./models/coin.class.js",
             "./models/coinbar.class.js",
             "./models/drawable_object.class.js",
-            "./models/endboss.class.js"
+            "./models/endboss.class.js",
+            "./models/healthbar_boss.class.js",
+            "./models/healthbar.class.js",
+            "./models/keyboard.class.js",
+            "./models/level.class.js",
+            "./models/mini_chicken.class.js",
+            "./models/movable_object.class.js",
+            "./models/statusbar.class.js",
+            "./models/throwable_object.class.js",
+            "./models/world.class.js",
+            "./js/audiohub.class.js",
+            "./js/game.js",
+            "./js/intervall_hub.class.js",
+            "./js/pix.class.js"
         ]
     },
     "opts": {

@@ -11,20 +11,16 @@ import { ThrowableObject } from "./throwable_object.class.js";
  * @class
  */
 export class Character extends MovableObject {
-
     // #region attributes
-
     /**
-     * 
+     * reference of the instance of class World
      */
     world;
-
     /**
      * Flag, which shows if the bottle can be throw by Character
      * @type {boolean} 
      */
     bottleReady = true;
-
     /**
      * Flag, which shows if character is falling
      * @type {boolean} 
