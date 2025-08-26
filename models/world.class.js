@@ -79,10 +79,10 @@ export class World {
         this.canvas = canvas;
         this.draw();
         this.setWorld();
+        this.resetValues();
         IntervalHub.startInterval(this.checkCollisions, 1000 / 60);
         IntervalHub.startInterval(this.checkEndgame, 1000 / 1);
         IntervalHub.startInterval(this.spawnEndboss, 1000 / 30);
-        Chicken.spawnX = 600;
     }
 
     // #region methods
@@ -174,7 +174,7 @@ export class World {
             AudioHub.playOne(AudioHub.CHR_DMG);
             this.character.hit();
             this.healthbar.setPercentage(this.character.health, Pix.status.health);
-            if (this.character.otherDirection) {
+            if (this.character.otherDirection && this.character.isWalking()) {
                 this.character.x += 50;
             } else {
                 this.character.x -= 50;
@@ -268,10 +268,10 @@ export class World {
      */
     addMovableObjects() {
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.collectibles.coins);
         this.addObjectsToMap(this.level.collectibles.bottles);
     }
@@ -319,7 +319,7 @@ export class World {
         }
     }
 
-    
+
     /**
      * Adds multiple objects to the map by iterating through the given array.
      * @param {Object[]} object - Array of objects to be drawn.
@@ -351,6 +351,15 @@ export class World {
     flipImageBack(mO) {
         mO.x = mO.x * -1;
         this.ctx.restore();
+    }
+
+    /**
+     * Reset static values when game start
+     * @method
+     */
+    resetValues() {
+        Chicken.spawnX = 600;
+        Bottle.bottlePercentage = 0;
     }
     // #endregion
 }

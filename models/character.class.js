@@ -212,6 +212,10 @@ export class Character extends MovableObject {
             }
         }
     }
+    
+    isWalking() {
+        return Keyboard.LEFT || Keyboard.RIGHT;
+    }
 
     /**
      * start the interval-methods of the character

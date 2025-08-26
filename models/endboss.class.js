@@ -103,7 +103,7 @@ export class Endboss extends MovableObject {
      */
     attack = () => {
         Endboss.ATTACK_COUNTER++
-        if (this.attackReady()) {
+        if (this.attackReady() && !this.isDead()) {
             setTimeout(() => {
                 this.x -= 130;
                 setTimeout(() => {
