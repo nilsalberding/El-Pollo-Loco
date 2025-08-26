@@ -1,12 +1,13 @@
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Collectibles } from "./collectibles.class.js";
+import { MovableObject } from "./movable_object.class.js";
 
 /**
  * Creates a Bottle to collect.
  * @class
  */
-export class Bottle extends Collectibles {
+export class Bottle extends MovableObject {
 
     y = 350;
     height = 80;

@@ -1,12 +1,13 @@
 import { IntervalHub } from "../js/intervall_hub.class.js";
 import { Pix } from "../js/pix.class.js";
 import { Collectibles } from "./collectibles.class.js";
+import { MovableObject } from "./movable_object.class.js";
 
 /**
  * creates a new coin to collect
  * @class
  */
-export class Coin extends Collectibles {
+export class Coin extends MovableObject {
     // #region attributes
     /**
      * set height of coin-image
