@@ -2,7 +2,7 @@
  * Wrapper class for an audio file.
  * Provides a standardized way to create and manage sound objects.
  */
-class MyAudio {
+export class MyAudio {
     /**
      * The HTMLAudioElement instance.
      * @type {HTMLAudioElement}
@@ -14,6 +14,7 @@ class MyAudio {
      * @type {boolean}
      */
     loaded = false;
+    static soundOn = true;
 
     /**
      * Creates a new audio object.
@@ -23,6 +24,15 @@ class MyAudio {
     constructor(_sound) {
         this.sound = new Audio(_sound);
         this.sound.volume = 0.2;
+    }
+
+    static saveToLocalStorage() {
+        localStorage.setItem("soundOn", JSON.stringify(MyAudio.soundOn));
+    }
+
+    static loadFromLocalStorage() {
+        const soundState = localStorage.getItem("soundOn");
+        MyAudio.soundOn = JSON.parse(soundState);
     }
 }
 

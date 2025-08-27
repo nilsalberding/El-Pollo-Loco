@@ -1,6 +1,6 @@
 import { Keyboard } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
-import { AudioHub } from "./audiohub.class.js";
+import { AudioHub, MyAudio } from "./audiohub.class.js";
 
 let canvas;
 let world;
@@ -109,7 +109,7 @@ function setBtns() {
     document.getElementById('btn-restart-lose').addEventListener('click', () => {
         restartGame('loser-screen')
     });
-    
+
 
     // Winner screen
     document.getElementById('btn-menu-win').addEventListener('click', () => {
@@ -124,7 +124,15 @@ function setBtns() {
  * Initializes sound settings by attaching event listeners
  * to sound on/off buttons.
  */
-function setSound() {
+function setSoundBtn() {
+    MyAudio.loadFromLocalStorage();
+    if (!MyAudio.soundOn) {
+        toggleScreen('btn-sound-mute');
+        toggleScreen('btn-sound-on');
+        AudioHub.allSounds.forEach((sound) => {
+            sound.sound.volume = 0.0;
+        })
+    }
     soundOn();
     soundOff();
 }
@@ -141,6 +149,8 @@ function soundOn() {
         AudioHub.allSounds.forEach((sound) => {
             sound.sound.volume = 0.2;
         })
+        MyAudio.soundOn = true;
+        MyAudio.saveToLocalStorage();
     })
 }
 
@@ -156,12 +166,14 @@ function soundOff() {
         AudioHub.allSounds.forEach((sound) => {
             sound.sound.volume = 0.0;
         })
+        MyAudio.soundOn = false;
+        MyAudio.saveToLocalStorage();
     })
 }
 
 // Initialize UI buttons and sound controls
 setBtns();
-setSound();
+setSoundBtn();
 
 
 // TODO : Fullscreen einstellen
