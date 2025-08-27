@@ -25,7 +25,7 @@ export class Endboss extends MovableObject {
      * height of images
      * @type {number}
      */
-    height = 250;
+    height = 300;
     /**
      * health of boss
      * @type {number}
@@ -134,7 +134,7 @@ export class Endboss extends MovableObject {
      * @method
      */
     attack = () => {
-        if (this.attackReady) {
+        if (this.attackReady && !this.isDead() && !this.isHurt) {
             if (!this.isAboveGround()) {
                 this.speedY = 20;
             }

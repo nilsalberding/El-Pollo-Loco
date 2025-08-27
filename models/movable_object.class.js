@@ -72,7 +72,6 @@ export class MovableObject extends DrawableObject {
     // #endregion
 
     // #region methods
-
     /**
      * values the hitbox
      * @method
@@ -83,6 +82,7 @@ export class MovableObject extends DrawableObject {
         this.rW = this.width - this.offset.left - this.offset.right;
         this.rH = this.height - this.offset.top - this.offset.bottom;
     }
+
     /**
      * gives the object gravitiy movement
      * @method
@@ -93,6 +93,7 @@ export class MovableObject extends DrawableObject {
             this.speedY -= this.acceleration;
         }
     }
+
     /**
      * 
      * @returns , if Object is above ground
@@ -101,6 +102,7 @@ export class MovableObject extends DrawableObject {
     isAboveGround() {
         return this.y + this.height < 420;
     }
+
     /**
      * add movement to the left for objects
      * @method
@@ -108,6 +110,7 @@ export class MovableObject extends DrawableObject {
     moveLeft = () => {
         this.x -= this.speedX;
     }
+
     /**
      * set damage to objects and set flag "isHurt"
      * @method
@@ -125,6 +128,7 @@ export class MovableObject extends DrawableObject {
             }
         }
     }
+
     /**
      * play Animation with Images of an Array
      * @param {string|Array<string>} pixArray - Array with Images
@@ -136,6 +140,7 @@ export class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+
     /**
      * 
      * @returns if Object-health is dead.
@@ -144,6 +149,7 @@ export class MovableObject extends DrawableObject {
     isDead() {
         return this.health == 0;
     }
+    
     /**
      * 
      * @param {Object} mO the Object this is colliding with

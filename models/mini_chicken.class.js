@@ -59,6 +59,7 @@ export class MiniChicken extends MovableObject {
             this.x -= this.speedX;
         }
     }
+    
     /**
      * set animations for Minichicken
      * @method
@@ -70,6 +71,7 @@ export class MiniChicken extends MovableObject {
             this.playAnimation(Pix.chickenSmall.walk);
         }
     }
+
     /**
      * value the new spawn-point of every new instance of chickens.
      * @method

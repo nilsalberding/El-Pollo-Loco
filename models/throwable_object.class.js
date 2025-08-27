@@ -56,6 +56,7 @@ export class ThrowableObject extends MovableObject {
         IntervalHub.startInterval(this.animations, 1000 / 30);
     }
     // #region methods
+    
     /**
      * choose, which direction the bottle is flying
      * @method
@@ -67,6 +68,7 @@ export class ThrowableObject extends MovableObject {
             IntervalHub.startInterval(this.throwRight, 1000 / 60);
         }
     }
+
     /**
      * throw bottle in left direction
      * @method
@@ -78,6 +80,7 @@ export class ThrowableObject extends MovableObject {
             this.speedY -= this.acceleration;
         }
     }
+
     /**
      * throw bottle in right direction
      * @method
@@ -89,6 +92,7 @@ export class ThrowableObject extends MovableObject {
             this.speedY -= this.acceleration;
         }
     }
+
     /**
      * set animations for throwable Object
      * @method

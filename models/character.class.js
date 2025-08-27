@@ -161,7 +161,7 @@ export class Character extends MovableObject {
      * @method
      */
     jump() {
-        this.speedY = 17;
+        this.speedY = 20;
         this.isJumping = true;
         this.currentImage = 0;
         this.lastMove = new Date().getTime();
@@ -226,6 +226,7 @@ export class Character extends MovableObject {
      */
     playJumpAnimation(pixArray) {
         if (this.isJumping) {
+            console.log(this.currentImage);            
             let i = this.currentImage % pixArray.length;
             let path = pixArray[i];
             this.img = this.imageCache[path];

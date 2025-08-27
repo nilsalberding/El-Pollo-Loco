@@ -86,6 +86,7 @@ export class World {
     }
 
     // #region methods
+
     /**
      * Set the reference at character-class from this world
      * @method
@@ -93,6 +94,7 @@ export class World {
     setWorld() {
         this.character.world = this;
     }
+
     /**
      * Checks collisions between the character, enemies, and collectible objects.
      * - Handles jumping on enemies, taking damage, and hitting enemies with bottles.
@@ -111,6 +113,7 @@ export class World {
         this.collectCoin();
         this.collectBottle();
     }
+
     /**
      * Checks if the character is dead and triggers the endgame sequence if true.
      * - Stops all intervals and sounds.
@@ -173,6 +176,7 @@ export class World {
         if (!_enemy.isDead()) {
             AudioHub.playOne(AudioHub.CHR_DMG);
             this.character.hit();
+            this.character.lastMove = new Date().getTime();
             this.healthbar.setPercentage(this.character.health, Pix.status.health);
             if (this.character.otherDirection && this.character.isWalking()) {
                 this.character.x += 50;
@@ -318,7 +322,6 @@ export class World {
             this.ctx.stroke();
         }
     }
-
 
     /**
      * Adds multiple objects to the map by iterating through the given array.
