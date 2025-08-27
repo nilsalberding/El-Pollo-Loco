@@ -178,7 +178,8 @@ body {
             width: 40px;
             height: 40px;
             background-position: center;
-            background-size: contain;
+            background-size: auto;
+            background-repeat: no-repeat;
             img {
                 width: 24px;
                 height: 24px;
@@ -187,22 +188,22 @@ body {
         }
 
         #btn-left {
-            /* background-image: url('./img/icons/arrow-left.png'); */
+            background-image: url('./img/icons/arrow-left.png');
             margin: 0 32px 32px 40px ;
         }
 
         #btn-right {
-            /* background-image: url('./img/icons/arrow-right.png'); */
+            background-image: url('./img/icons/arrow-right.png');
             margin: 0 0 32px 0;
         }
 
         #btn-jump {
-            /* background-image: url('./img/icons/arrow-up.png'); */
+            background-image: url('./img/icons/arrow-up.png');
             margin: 0 0 32px 0;
         }
 
         #btn-throw {
-            /* background-image: url('./img/icons/glass-bottle.png'); */
+            background-image: url('./img/icons/glass-bottle.png');
             margin: 0 40px 32px 32px;
         }
     }
