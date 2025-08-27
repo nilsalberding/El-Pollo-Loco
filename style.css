@@ -56,6 +56,8 @@ body {
 #wrapper {
     width: 720px;
     height: 480px;
+    display: flex;
+    justify-content: center;
 
     @media (max-width: 720px) {
         aspect-ratio: 720 / 480;
@@ -92,6 +94,7 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        z-index: 2;
 
         table {
             width: 100%;
@@ -112,7 +115,7 @@ body {
                 align-items: center;
 
                 td {
-                    padding: 32px;
+                    padding: 8px;
                     width: 50%;
                     text-align: center;
                 }
@@ -129,10 +132,14 @@ body {
         align-items: center;
         color: white;
         overflow: auto;
-
-        p {
-            padding: 16px;
+        z-index: 2;
+        padding: 16px;
+        text-decoration: none;
+        a{
+            color: white;
         }
+
+        /* p {} */
     }
 
     #loser-screen {
@@ -150,11 +157,11 @@ body {
     }
 
     #mobile-btns {
-
+        position: fixed;
         align-items: flex-end;
         justify-content: space-between;
 
-        @media (min-width: 900px) {
+        @media (min-width: 1100px) {
             display: none;
         }
 
@@ -162,32 +169,41 @@ body {
             position: relative;
             width: auto;
             height: auto;
-            margin: 32px;
         }
 
         button {
             border: none;
-            background-color: transparent;
-            width: 48px;
-            height: 48px;
+            border-radius: 100%;
+            background-color:  #453d37a8;
+            width: 40px;
+            height: 40px;
             background-position: center;
-            background-size: cover;
+            background-size: contain;
+            img {
+                width: 24px;
+                height: 24px;
+            }
+
         }
 
         #btn-left {
-            background-image: url('./img/icons/mobile-left.png');
+            /* background-image: url('./img/icons/arrow-left.png'); */
+            margin: 0 32px 32px 40px ;
         }
 
         #btn-right {
-            background-image: url('./img/icons/mobile-right.png');
+            /* background-image: url('./img/icons/arrow-right.png'); */
+            margin: 0 0 32px 0;
         }
 
         #btn-jump {
-            background-image: url('./img/icons/mobile-jump.png');
+            /* background-image: url('./img/icons/arrow-up.png'); */
+            margin: 0 0 32px 0;
         }
 
         #btn-throw {
-            background-image: url('./img/icons/mobile-bottle.png');
+            /* background-image: url('./img/icons/glass-bottle.png'); */
+            margin: 0 40px 32px 32px;
         }
     }
 
@@ -195,6 +211,7 @@ body {
         background-color: #ED9046;
         align-items: center;
         justify-content: center;
+        z-index: 2;
 
         h1 {
             color: white;
@@ -205,6 +222,7 @@ body {
         justify-content: center;
         align-items: center;
         background-color: black;
+        z-index: 2;
 
         @media (max-width: 500px) {
             display: flex;
@@ -240,7 +258,7 @@ body {
     }
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 1000px) {
 
     canvas {
         width: 100%;
