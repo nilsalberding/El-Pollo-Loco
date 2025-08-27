@@ -25,7 +25,7 @@ export class Endboss extends MovableObject {
      * height of images
      * @type {number}
      */
-    height = 300;
+    height = 250;
     /**
      * health of boss
      * @type {number}
@@ -91,9 +91,10 @@ export class Endboss extends MovableObject {
         IntervalHub.startInterval(this.setAttackFlag, 1000 / 60);
         IntervalHub.startInterval(this.attack, 1000 / 60);
         IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
-        IntervalHub.startInterval(this.animate, 1000 / 10);
+        IntervalHub.startInterval(this.animate, 1000 / 15);
         IntervalHub.startInterval(this.applyGravity, 100 / 3);
         IntervalHub.startInterval(this.checkDead, 1000 / 1);
+        IntervalHub.startInterval(this.checkOffScreen, 1000 / 1);
     }
 
     /**
@@ -138,7 +139,6 @@ export class Endboss extends MovableObject {
             if (!this.isAboveGround()) {
                 this.speedY = 20;
             }
-            console.log('attack');
             this.speedX = 3;
             this.x -= this.speedX;
         }
@@ -176,6 +176,18 @@ export class Endboss extends MovableObject {
     playBossDeadSound() {
         AudioHub.playOne(AudioHub.CHCKN_DEAD)
         this.deadSoundPlayed = true;
+    }
+
+    checkOffScreen = () => {
+        if (this.x < 0) {
+            setTimeout(() => {
+                AudioHub.stopAll();
+                AudioHub.playOne(AudioHub.CHR_DEAD);
+                IntervalHub.stopAllIntervals();
+                toggleScreen('loser-screen');
+                toggleScreen('mobile-btns');
+            }, 500)
+        }
     }
     // #endregion
 }

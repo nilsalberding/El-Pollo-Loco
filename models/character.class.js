@@ -30,7 +30,7 @@ export class Character extends MovableObject {
     x = 80;
     y = 220;
     height = 200;
-
+    defaultY = 220;
     speedX = 7;
     health = 100;
 
@@ -106,9 +106,11 @@ export class Character extends MovableObject {
     animations = () => {
         if (this.isAboveGround() && this.isJumping) {
             this.playJumpAnimation(Pix.mainChar.jump);
-        } else if (this.isAboveGround()) {
-            this.img = this.imageCache[Pix.mainChar.jump[6]];
-        } else if (this.isDead()) {
+        } 
+        // else if (this.isAboveGround()) {
+        //     this.img = this.imageCache[Pix.mainChar.jump[6]];
+        // } 
+        else if (this.isDead()) {
             this.playAnimation(Pix.mainChar.dead);
         } else if (this.isHurt) {
             this.playAnimation(Pix.mainChar.hurt);
@@ -118,6 +120,12 @@ export class Character extends MovableObject {
             this.playAnimation(Pix.mainChar.longIdle);
         } else {
             this.playAnimation(Pix.mainChar.idle);
+        }
+    }
+
+    setDefaultY = () => {
+        if (!this.isAboveGround()){
+            this.y = this.defaultY;
         }
     }
 
@@ -163,7 +171,7 @@ export class Character extends MovableObject {
     jump() {
         this.speedY = 20;
         this.isJumping = true;
-        this.currentImage = 0;
+        this.currentImage = 2;
         this.lastMove = new Date().getTime();
         AudioHub.playOne(AudioHub.CHR_JUMP);
     }
@@ -175,7 +183,7 @@ export class Character extends MovableObject {
     miniJump() {
         this.speedY = 10;
         this.isJumping = true;
-        this.currentImage = 0;
+        this.currentImage = 2;
     }
 
     /**
@@ -190,6 +198,10 @@ export class Character extends MovableObject {
         }
     }
 
+    /**
+     * set snoring-sound for character
+     * @method
+     */
     snoring() {
         if (!this.isSnoring) {
             this.isSnoring = true;
@@ -200,7 +212,6 @@ export class Character extends MovableObject {
         }
         
     }
-
 
     /**
      * let the character throw a bottle
@@ -225,8 +236,7 @@ export class Character extends MovableObject {
      * @param {string} pixArray - Array with Images of the Animation
      */
     playJumpAnimation(pixArray) {
-        if (this.isJumping) {
-            console.log(this.currentImage);            
+        if (this.isJumping) {           
             let i = this.currentImage % pixArray.length;
             let path = pixArray[i];
             this.img = this.imageCache[path];
@@ -255,9 +265,10 @@ export class Character extends MovableObject {
         IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
         IntervalHub.startInterval(this.moveSet, 1000 / 60);
         IntervalHub.startInterval(this.applyGravity, 1000 / 60);
-        IntervalHub.startInterval(this.animations, 1000 / 15);
+        IntervalHub.startInterval(this.animations, 1000 / 10);
         IntervalHub.startInterval(this.checkFalling, 1000 / 30);
         IntervalHub.startInterval(this.setSound, 1000 / 4);
+        IntervalHub.startInterval(this.setDefaultY, 1000 / 60);
     }
 
     /**
