@@ -56,19 +56,46 @@ export class Endboss extends MovableObject {
      * @static
      * @type {boolean}
      */
-    static ATTACK_COUNTER = 0;
-// #endregion
-/**
- * constructor loads images, start the intervals and set width
- */
+    attackReady = false;
+    static ATTACK_COUNTER = 1;
+    // #endregion
+    /**
+     * constructor loads images, start the intervals and set width
+     */
     constructor() {
         super().loadImage(Pix.boss.alert[0]);
         this.loadBossImages();
         this.startBossIntervals();
         this.width = this.height * 0.86;
     }
-
     // #region methods
+
+    /**
+     * load all boss images
+     * @method
+     */
+    loadBossImages() {
+        this.loadImages(Pix.boss.alert);
+        this.loadImages(Pix.boss.dead);
+        this.loadImages(Pix.boss.attack);
+        this.loadImages(Pix.boss.hurt);
+        this.loadImages(Pix.boss.walk);
+    }
+
+    /**
+     * start all Interval-functions
+     * @method
+     */
+    startBossIntervals() {
+        IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
+        IntervalHub.startInterval(this.setAttackFlag, 1000 / 60);
+        IntervalHub.startInterval(this.attack, 1000 / 60);
+        IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
+        IntervalHub.startInterval(this.animate, 1000 / 10);
+        IntervalHub.startInterval(this.applyGravity, 100 / 3);
+        IntervalHub.startInterval(this.checkDead, 1000 / 1);
+    }
+
     /**
      * set animations of the boss
      * @method
@@ -80,7 +107,7 @@ export class Endboss extends MovableObject {
             this.playAnimation(Pix.boss.dead);
         } else if (this.isHurt) {
             this.playAnimation(Pix.boss.hurt);
-        } else if (this.attackReady()) {
+        } else if (this.attackReady) {
             this.playAnimation(Pix.boss.attack);
         } else {
             this.playAnimation(Pix.boss.walk);
@@ -89,27 +116,31 @@ export class Endboss extends MovableObject {
     }
 
     /**
-     * returns, if the boss can attack. boss should attack every six seconds
-     * @returns {boolean} - returns, if attack is ready
+     * set the AttackFlag on true or false
      * @method
      */
-    attackReady() {
-        return Endboss.ATTACK_COUNTER % 3 == 0;
+    setAttackFlag = () => {
+        Endboss.ATTACK_COUNTER++
+        if (Endboss.ATTACK_COUNTER % 240 == 0) {
+            this.attackReady = true;
+        }
+        if (Endboss.ATTACK_COUNTER % 240 == 80) {
+            this.attackReady = false;
+        }
     }
 
     /**
-     * attack animation of boss. Attack counter goes one up every two seconds. 
+     * attack animation of boss.  
      * @method
      */
     attack = () => {
-        Endboss.ATTACK_COUNTER++
-        if (this.attackReady() && !this.isDead()) {
-            setTimeout(() => {
-                this.x -= 130;
-                setTimeout(() => {
-                    this.x += 70;
-                }, 200);
-            }, 1000);
+        if (this.attackReady) {
+            if (!this.isAboveGround()) {
+                this.speedY = 20;
+            }
+            console.log('attack');
+            this.speedX = 3;
+            this.x -= this.speedX;
         }
     }
 
@@ -145,31 +176,6 @@ export class Endboss extends MovableObject {
     playBossDeadSound() {
         AudioHub.playOne(AudioHub.CHCKN_DEAD)
         this.deadSoundPlayed = true;
-    }
-
-    /**
-     * load all boss images
-     * @method
-     */
-    loadBossImages() {
-        this.loadImages(Pix.boss.alert);
-        this.loadImages(Pix.boss.dead);
-        this.loadImages(Pix.boss.attack);
-        this.loadImages(Pix.boss.hurt);
-        this.loadImages(Pix.boss.walk);
-    }
-
-    /**
-     * start all Interval-functions
-     * @method
-     */
-    startBossIntervals() {
-        IntervalHub.startInterval(this.getRealFrame, 1000 / 60);
-        IntervalHub.startInterval(this.attack, 1000 / 0.5);
-        IntervalHub.startInterval(this.setHealthbar, 1000 / 10);
-        IntervalHub.startInterval(this.animate, 1000 / 10);
-        IntervalHub.startInterval(this.applyGravity, 100 / 3);
-        IntervalHub.startInterval(this.checkDead, 1000 / 1);
     }
     // #endregion
 }
